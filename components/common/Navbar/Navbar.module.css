@@ -1,5 +1,5 @@
 .root {
-  @apply sticky bg-gray-50 top-0 z-40 transition-all duration-150 px-5;
+  @apply bg-gray-50 top-0 z-40 transition-all duration-150 px-5;
 }
 
 .link {

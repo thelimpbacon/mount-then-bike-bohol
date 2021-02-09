@@ -10,6 +10,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  console.log(children);
+
   return (
     <div className={cn(s.root)}>
       <Navbar />

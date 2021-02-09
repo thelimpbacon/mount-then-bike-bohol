@@ -1,0 +1,26 @@
+.carousel {
+  @apply z-10 inset-0  flex items-center justify-center overflow-hidden;
+  @screen md {
+    height: 42rem;
+  }
+}
+
+.imageContainer {
+  & > div {
+    @apply h-full;
+    & > div {
+      @apply h-full;
+    }
+  }
+}
+
+/* .imageContainer > div {
+  @apply h-full;
+} */
+/* .imageContainer > div > {
+  @apply h-3/4;
+} */
+
+.img {
+  @apply w-full h-auto max-h-full object-cover;
+}
