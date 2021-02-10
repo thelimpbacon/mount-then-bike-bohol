@@ -1,9 +1,9 @@
 .root {
-  @apply bg-gray-50 top-0 z-40 transition-all duration-150 px-5;
+  @apply sticky bg-transparent shadow-md top-0 z-40 transition-all duration-150 px-5;
 }
 
 .link {
-  @apply inline-flex items-center leading-6 font-medium transition ease-in-out duration-75 cursor-pointer;
+  @apply text-white inline-flex items-center leading-6 font-medium transition ease-in-out duration-75 cursor-pointer;
 }
 
 .link:focus {

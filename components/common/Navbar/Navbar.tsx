@@ -23,7 +23,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className={cn(s.root, { "shadow-magical": hasScrolled })}>
+    <div className={cn(s.root, { "bg-black opacity-80": hasScrolled })}>
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
         <div className="flex items-center flex-1">
           <Link href="/">
@@ -44,17 +44,13 @@ const Navbar = () => {
           </nav>
         </div>
 
-        <div className="justify-center flex-1 hidden lg:flex">
+        <div className="justify-end flex-1 flex lg:justify-center">
           <Searchbar />
         </div>
 
-        <div className="flex justify-end flex-1 space-x-8">
+        <div className="hidden lg:flex justify-end flex-1 space-x-8">
           {/* Night mode toggle here */}
         </div>
-      </div>
-
-      <div className="flex pb-4 lg:px-6 lg:hidden">
-        <Searchbar id="mobile-search" />
       </div>
     </div>
   );
