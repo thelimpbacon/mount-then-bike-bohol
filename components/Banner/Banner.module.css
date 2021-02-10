@@ -1,5 +1,5 @@
 .carousel {
-  @apply hidden md:flex  z-0 inset-0 items-center justify-center overflow-hidden relative -top-32;
+  @apply hidden md:flex  z-0 inset-0 items-center justify-center overflow-hidden;
   @screen md {
     height: 50rem;
   }
