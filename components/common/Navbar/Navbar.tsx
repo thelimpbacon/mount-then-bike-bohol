@@ -23,7 +23,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className={cn(s.root, { "bg-black opacity-80": hasScrolled })}>
+    <div
+      className={cn(s.root, {
+        "bg-black opacity-80": hasScrolled,
+        // "bg-transparent": !hasScrolled,
+      })}
+    >
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
         <div className="flex items-center flex-1">
           <Link href="/">
