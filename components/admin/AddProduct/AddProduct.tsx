@@ -3,7 +3,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import TextareaAutosize from "react-textarea-autosize";
 import cn from "classnames";
 import s from "./AddProduct.module.css";
-``;
+import { useMutation } from "@apollo/client";
+import { ADD_PRODUCT } from "@lib/tags";
+
 interface AddProductProps {}
 
 interface FormInput {
@@ -11,15 +13,11 @@ interface FormInput {
   price: number;
   description: string;
   type: string;
-  mainImage: any;
-  secondaryImage1: any;
-  secondaryImage2: any;
-  secondaryImage3: any;
-  secondaryImage4: any;
-  secondaryImage5: any;
 }
 
 const AddProduct = ({}: AddProductProps) => {
+  const [addProduct] = useMutation(ADD_PRODUCT);
+
   const { register, errors, handleSubmit } = useForm<FormInput>({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -29,18 +27,17 @@ const AddProduct = ({}: AddProductProps) => {
       price: 0,
       description: "",
       type: "",
-      mainImage: "",
-      secondaryImage1: "",
-      secondaryImage2: "",
-      secondaryImage3: "",
-      secondaryImage4: "",
-      secondaryImage5: "",
     },
   });
 
-  const onSubmit = (data: any, e: { preventDefault: () => void }) => {
+  const onSubmit = async (data: any, e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(data);
+
+    await addProduct({
+      variables: {
+        input: { ...data },
+      },
+    });
   };
 
   return (
@@ -72,6 +69,7 @@ const AddProduct = ({}: AddProductProps) => {
               })}
               ref={register({
                 required: { value: true, message: "This is required." },
+                valueAsNumber: true,
               })}
               name="price"
               type="number"
@@ -116,74 +114,6 @@ const AddProduct = ({}: AddProductProps) => {
             <div className={s.errorText}>
               <ErrorMessage errors={errors} name="type" />
             </div>
-          </div>
-
-          <div className={s.inputContainer}>
-            <label className={s.label}>Main Image</label>
-            <input
-              className={cn(s.input, {
-                [s.inputError]: errors?.mainImage?.message,
-              })}
-              ref={register({
-                required: { value: true, message: "This is required." },
-              })}
-              name="mainImage"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
-
-            <div className={s.errorText}>
-              <ErrorMessage errors={errors} name="mainImage" />
-            </div>
-          </div>
-
-          <div className={s.inputContainer}>
-            <label className={s.label}>Secondary Images</label>
-            <input
-              className={cn(s.input, "my-2", {
-                [s.inputError]: errors?.secondaryImage1?.message,
-              })}
-              ref={register}
-              name="secondaryImage1"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
-            <input
-              className={cn(s.input, "my-2", {
-                [s.inputError]: errors?.secondaryImage2?.message,
-              })}
-              ref={register}
-              name="secondaryImage2"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
-            <input
-              className={cn(s.input, "my-2", {
-                [s.inputError]: errors?.secondaryImage3?.message,
-              })}
-              ref={register}
-              name="secondaryImage3"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
-            <input
-              className={cn(s.input, "my-2", {
-                [s.inputError]: errors?.secondaryImage4?.message,
-              })}
-              ref={register}
-              name="secondaryImage4"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
-            <input
-              className={cn(s.input, "my-2", {
-                [s.inputError]: errors?.secondaryImage5?.message,
-              })}
-              ref={register}
-              name="secondaryImage5"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-            />
           </div>
 
           <div className={s.inputContainer}>
