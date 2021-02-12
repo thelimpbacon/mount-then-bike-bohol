@@ -8,23 +8,37 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.9",
+    "@apollo/link-context": "^2.0.0-beta.3",
+    "@apollo/link-error": "^2.0.0-beta.3",
+    "@hookform/error-message": "0.0.5",
+    "apollo-server-micro": "^2.20.0",
+    "apollo-upload-client": "^14.1.3",
     "autoprefixer": "^10.2.4",
     "classnames": "^2.2.6",
+    "graphql": "^15.5.0",
+    "isomorphic-unfetch": "^3.1.0",
     "keen-slider": "^5.4.0",
     "lodash.throttle": "^4.1.1",
+    "mongoose": "^5.11.15",
     "next": "10.0.6",
     "postcss": "^8.2.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-form": "^6.15.1",
+    "react-textarea-autosize": "^8.3.1",
     "tailwindcss": "^2.0.3"
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.4.1",
+    "@types/apollo-upload-client": "^14.1.0",
     "@types/classnames": "^2.2.11",
+    "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
-    "stylelint-config-recommended": "^3.0.0",
-    "typescript": "^4.1.3",
     "postcss-flexbugs-fixes": "^4.2.1",
-    "postcss-preset-env": "^6.7.0"
+    "postcss-preset-env": "^6.7.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "typescript": "^4.1.3"
   }
 }
