@@ -1,5 +1,5 @@
 .root {
-  @apply sticky bg-transparent shadow-md top-0 z-40 transition-all duration-150 px-5;
+  @apply sticky shadow-md top-0 z-40 transition-all duration-150 px-5;
 }
 
 .link {
