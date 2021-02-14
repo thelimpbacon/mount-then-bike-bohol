@@ -5,6 +5,7 @@ import cn from "classnames";
 import s from "./AddProduct.module.css";
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "@lib/tags";
+import { ImageUploader } from "@components/common";
 
 interface AddProductProps {}
 
@@ -114,6 +115,11 @@ const AddProduct = ({}: AddProductProps) => {
             <div className={s.errorText}>
               <ErrorMessage errors={errors} name="type" />
             </div>
+          </div>
+
+          <div className={s.inputContainer}>
+            <label className={s.label}>Main image</label>
+            <ImageUploader />
           </div>
 
           <div className={s.inputContainer}>
