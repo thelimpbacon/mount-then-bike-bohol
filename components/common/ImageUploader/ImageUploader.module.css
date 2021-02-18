@@ -1,0 +1,3 @@
+.root {
+  @apply relative flex flex-wrap justify-center w-full h-full px-4 bg-transparent;
+}

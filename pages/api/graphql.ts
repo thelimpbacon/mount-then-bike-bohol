@@ -10,6 +10,19 @@ const typeDefs = gql`
     price: Float
     description: String
     type: String
+    mainImage: Image
+  }
+
+  type Image {
+    public_id: String
+    url: String
+    filename: String
+  }
+
+  input ImageInput {
+    public_id: String
+    url: String
+    filename: String
   }
 
   input ProductInput {
@@ -17,6 +30,7 @@ const typeDefs = gql`
     price: Float
     description: String
     type: String
+    mainImage: ImageInput
   }
 
   type Query {
