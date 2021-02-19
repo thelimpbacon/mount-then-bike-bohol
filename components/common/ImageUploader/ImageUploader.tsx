@@ -3,6 +3,7 @@ import cn from "classnames";
 import s from "./ImageUploader.module.css";
 import { UploadProgress } from "..";
 import { RegisterOptions, useFormContext } from "react-hook-form";
+import { useDelete } from "../utils";
 
 // https://codingwithmanny.medium.com/build-a-react-drag-drop-progress-file-uploader-fb874c515a7
 
@@ -17,6 +18,8 @@ const ImageUploader = ({ name, rules }: Props) => {
   const [progress, setProgress] = useState<number>(1);
   const { register, setValue, errors, getValues } = useFormContext();
   const imageRef = useRef<HTMLInputElement>(null);
+
+  const { status: deleteStatus, value, error, execute } = useDelete();
 
   const onChange = useCallback(async (e) => {
     const supportedFilesTypes = ["image/jpeg", "image/png"];
@@ -96,39 +99,16 @@ const ImageUploader = ({ name, rules }: Props) => {
     e.preventDefault();
   }, []);
 
-  const deleteImage = useCallback(async () => {
-    const public_id = getValues("mainImage.public_id");
-
-    const res = await fetch(`/api/delete-image?public_id=${public_id}`);
-    const { signature, timestamp } = await res.json();
-
-    const payload = new FormData();
-
-    payload.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
-    payload.append("public_id", public_id);
-    payload.append("signature", signature);
-    payload.append("timestamp", timestamp);
-
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
-
-    xhr.onload = () => {
-      if (xhr.status != 200) {
-        setStatus("Error");
-      } else {
-        setValue("mainImage.public_id", "");
-        setValue("mainImage.url", "", { shouldValidate: true });
-        setValue("mainImage.filename", "");
-        setPreview(null);
-      }
-    };
-
-    // XHR - Make request
-    xhr.open(
-      "POST",
-      "https://api.cloudinary.com/v1_1/mount-then-bike-bohol/image/destroy"
-    );
-    xhr.send(payload);
+  const deleteImage = useCallback(() => {
+    execute(getValues("mainImage.public_id"));
+    if (deleteStatus === "success") {
+      setValue("mainImage.public_id", "");
+      setValue("mainImage.url", "", {
+        shouldValidate: true,
+      });
+      setValue("mainImage.filename", "filename");
+      setPreview(null);
+    }
   }, []);
 
   return (
