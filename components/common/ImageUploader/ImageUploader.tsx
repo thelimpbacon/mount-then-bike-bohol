@@ -1,114 +1,64 @@
 import { useCallback, useRef, useState } from "react";
 import cn from "classnames";
-import s from "./ImageUploader.module.css";
 import { UploadProgress } from "..";
 import { RegisterOptions, useFormContext } from "react-hook-form";
-import { useDelete } from "../utils";
+import { useDelete, useUpload } from "@lib/xhrClient";
+import s from "./ImageUploader.module.css";
 
-// https://codingwithmanny.medium.com/build-a-react-drag-drop-progress-file-uploader-fb874c515a7
-
-interface Props {
+interface ImageUploaderProps {
   name: string;
   rules?: RegisterOptions;
 }
 
-const ImageUploader = ({ name, rules }: Props) => {
-  const [status, setStatus] = useState<string>("");
+const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
   const [preview, setPreview] = useState(null);
-  const [progress, setProgress] = useState<number>(1);
-  const { register, setValue, errors, getValues } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { status: deleteStatus, value, error, execute } = useDelete();
+  const [
+    { error: uploadError, done: uploadDone, progress, loading: uploadLoading },
+    uploadImage,
+  ] = useUpload({
+    url: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL,
+    onComplete: ({ response }) => {
+      //set value for form
+      setValue(`${name}.public_id`, response.public_id);
+      setValue(`${name}.url`, response.secure_url, {
+        shouldValidate: true,
+      });
+      setValue(`${name}.filename`, response.original_filename);
+    },
+    onError: ({ error }) => {
+      console.error("error:", error);
+      setPreview(null);
+    },
+  });
 
-  const onChange = useCallback(async (e) => {
-    const supportedFilesTypes = ["image/jpeg", "image/png"];
-    const { type } = e.target.files[0];
+  const [{ loading: deleteLoading }, deleteImage] = useDelete({
+    url: process.env.NEXT_PUBLIC_CLOUDINARY_DESTROY_URL,
+    onComplete: () => {
+      setValue(`${name}.public_id`, "");
+      setValue(`${name}.url`, "", {
+        shouldValidate: true,
+      });
+      setValue(`${name}.filename`, "");
+      setPreview(null);
+    },
+    onError: ({ response }) => {
+      console.log("delete error:", response);
+    },
+  });
 
-    if (supportedFilesTypes.indexOf(type) > -1) {
-      const reader = new FileReader();
-      reader.onload = (e) => setPreview(e.target.result);
-      reader.readAsDataURL(e.target.files[0]);
-
-      // Create Form Data
-      const payload = new FormData();
-      const filename = encodeURIComponent(e.target.files[0].name);
-
-      setStatus("Uploading");
-
-      // fetch signature from api route
-      const res = await fetch(`/api/signed-image-upload?file=${filename}`);
-      const { timestamp, signature, public_id } = await res.json();
-
-      payload.append("file", e.target.files[0]);
-      payload.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
-      payload.append("public_id", public_id);
-      payload.append("timestamp", timestamp);
-      payload.append("signature", signature);
-
-      // XHR - New XHR request
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = "json";
-
-      // XHR - Upload Progress listener
-      xhr.upload.onprogress = (e) => {
-        const done = e.loaded;
-        const total = e.total;
-
-        const percentDone = Math.floor((done / total) * 1000) / 10;
-        if (percentDone >= 100) {
-          setStatus("Done");
-        } else {
-          setStatus("Uploading");
-        }
-
-        setProgress(percentDone);
-      };
-
-      // XHR - Upload Finish listener
-      xhr.onload = () => {
-        if (xhr.status != 200) {
-          setStatus("Error");
-        } else {
-          //use response
-          // public_id, secure_url, original_filename
-          setValue("mainImage.public_id", public_id);
-          setValue("mainImage.url", xhr.response.secure_url, {
-            shouldValidate: true,
-          });
-          setValue("mainImage.filename", filename);
-        }
-
-        setProgress(1);
-      };
-
-      // XHR - Upload Error listener
-      xhr.onerror = () => {
-        setStatus("Error");
-        setProgress(1);
-      };
-
-      // XHR - Make request
-      xhr.open(
-        "POST",
-        "https://api.cloudinary.com/v1_1/mount-then-bike-bohol/image/upload"
-      );
-      xhr.send(payload);
-    }
-
+  const handleFileChange = useCallback((e) => {
+    uploadImage(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e) => setPreview(e.target.result);
+    reader.readAsDataURL(e.target.files[0]);
     e.preventDefault();
   }, []);
 
-  const deleteImage = useCallback(() => {
-    execute(getValues("mainImage.public_id"));
-    if (deleteStatus === "success") {
-      setValue("mainImage.public_id", "");
-      setValue("mainImage.url", "", {
-        shouldValidate: true,
-      });
-      setValue("mainImage.filename", "filename");
-      setPreview(null);
-    }
+  const handleDeleteImage = useCallback(() => {
+    deleteImage(getValues("mainImage.public_id"));
   }, []);
 
   return (
@@ -116,7 +66,7 @@ const ImageUploader = ({ name, rules }: Props) => {
       <input name={`${name}.public_id`} ref={register({ ...rules })} hidden />
       <input name={`${name}.url`} ref={register({ ...rules })} hidden />
       <input name={`${name}.filename`} ref={register({ ...rules })} hidden />
-      <input type="file" onChange={onChange} hidden ref={imageRef} />
+      <input type="file" hidden ref={imageRef} onChange={handleFileChange} />
 
       <div className={s.root}>
         <div
@@ -144,30 +94,31 @@ const ImageUploader = ({ name, rules }: Props) => {
           </label>
         </div>
         <div className="relative h-full">
-          {status === "Uploading" && (
+          {uploadLoading && (
             <>
               <UploadProgress progress={progress} />
               <div
                 className={cn("absolute inset-0", {
-                  "bg-blue-200 bg-opacity-50": status === "Uploading",
+                  "bg-blue-200 bg-opacity-50": !uploadLoading,
                 })}
               ></div>
             </>
           )}
 
-          <img
-            className="object-contain w-auto h-full rounded-md"
-            src={preview}
-            style={{
-              filter:
-                status === "Uploading" || status === "Error" ? "blur(5px)" : "",
-            }}
-          />
-
           {preview && (
+            <img
+              className="object-contain w-auto h-full rounded-md"
+              src={preview}
+              style={{
+                filter: uploadLoading || deleteLoading ? "blur(5px)" : "",
+              }}
+            />
+          )}
+
+          {!uploadError && uploadDone && preview && (
             <div
               className="absolute top-0 right-0 z-20 p-0.5 bg-white cursor-pointer"
-              onClick={deleteImage}
+              onClick={handleDeleteImage}
             >
               <svg
                 className="w-6 h-6"

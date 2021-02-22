@@ -16,7 +16,7 @@ const deleteImageHandler = async (
     process.env.CLOUDINARY_API_SECRET
   );
 
-  return res.status(200).json({ signature, timestamp });
+  return res.status(200).json({ signature, timestamp, public_id });
 };
 
 export default deleteImageHandler;
