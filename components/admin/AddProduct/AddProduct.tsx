@@ -9,16 +9,24 @@ import s from "./AddProduct.module.css";
 
 interface AddProductProps {}
 
+interface ImageField {
+  public_id: string;
+  url: string;
+  filename: string;
+}
+
 export interface FormInput {
   name: string;
   price: number;
   description: string;
   type: string;
-  mainImage: {
-    public_id: string;
-    url: string;
-    filename: string;
-  };
+  mainImage: ImageField;
+  secondaryImage1: ImageField;
+  secondaryImage2: ImageField;
+  secondaryImage3: ImageField;
+  secondaryImage4: ImageField;
+  secondaryImage5: ImageField;
+  secondaryImage6: ImageField;
 }
 
 const AddProduct = ({}: AddProductProps) => {
@@ -34,6 +42,36 @@ const AddProduct = ({}: AddProductProps) => {
       description: "",
       type: "",
       mainImage: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage1: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage2: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage3: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage4: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage5: {
+        public_id: "",
+        url: "",
+        filename: "",
+      },
+      secondaryImage6: {
         public_id: "",
         url: "",
         filename: "",
@@ -135,7 +173,7 @@ const AddProduct = ({}: AddProductProps) => {
             <div className={cn(s.inputContainer)}>
               <label className={s.label}>Main image</label>
               <div
-                className={cn(s.input, "h-60", {
+                className={cn(s.input, "max-h-60 h-60", {
                   [s.inputError]: methods.errors?.mainImage?.url?.message,
                 })}
               >
@@ -151,29 +189,29 @@ const AddProduct = ({}: AddProductProps) => {
               </div>
             </div>
 
-            {/* <div className={cn(s.inputContainer)}>
+            <div className={cn(s.inputContainer)}>
               <label className={s.label}>Secondary images</label>
-              <div className="grid grid-cols-1 gap-2">
-                <div className="">
-                  <ImageUploader />
+              <div className="grid grid-cols-2 gap-2">
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage1" />
                 </div>
-                <div className="">
-                  <ImageUploader />
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage2" />
                 </div>
-                <div className="">
-                  <ImageUploader />
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage3" />
                 </div>
-                <div className="">
-                  <ImageUploader />
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage4" />
                 </div>
-                <div className="">
-                  <ImageUploader />
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage5" />
                 </div>
-                <div className="">
-                  <ImageUploader />
+                <div className={cn(s.input, "max-h-36")}>
+                  <ImageUploader name="secondaryImage6" />
                 </div>
               </div>
-            </div> */}
+            </div>
 
             <div className={s.inputContainer}>
               <button className={s.button} type="submit">

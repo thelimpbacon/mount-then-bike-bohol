@@ -42,9 +42,11 @@ const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
         shouldValidate: true,
       });
       setValue(`${name}.filename`, "");
+      imageRef.current.value = "";
       setPreview(null);
     },
     onError: ({ response }) => {
+      imageRef.current.value = "";
       console.log("delete error:", response);
     },
   });
@@ -58,7 +60,7 @@ const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
   }, []);
 
   const handleDeleteImage = useCallback(() => {
-    deleteImage(getValues("mainImage.public_id"));
+    deleteImage(getValues(`${name}.public_id`));
   }, []);
 
   return (
@@ -70,12 +72,12 @@ const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
 
       <div className={s.root}>
         <div
-          className={cn("flex items-center justify-center w-3/4 lg:w-1/4", {
+          className={cn("flex items-center justify-center w-3/4 lg:w-1/2", {
             hidden: preview,
           })}
           onClick={() => imageRef.current.click()}
         >
-          <label className="flex flex-col items-center w-full py-6 bg-white border border-blue-200 rounded-lg shadow-lg cursor-pointer text-blue hover:bg-blue-400 hover:text-white">
+          <div className={s.buttonContainer}>
             <svg
               className="w-6 h-6"
               xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +93,7 @@ const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
               />
             </svg>
             <span className="mt-2 text-xs lg:text-base">Upload image</span>
-          </label>
+          </div>
         </div>
         <div className="relative h-full">
           {uploadLoading && (
