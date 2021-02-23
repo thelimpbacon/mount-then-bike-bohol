@@ -1,0 +1,7 @@
+.root {
+  @apply relative flex flex-wrap justify-center w-full h-full px-4 bg-transparent;
+}
+
+.buttonContainer {
+  @apply flex flex-col items-center w-full py-6 text-center text-blue-500 bg-white border border-blue-200 rounded-lg shadow-lg cursor-pointer hover:bg-blue-400 hover:text-white;
+}

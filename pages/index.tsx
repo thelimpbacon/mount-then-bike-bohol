@@ -6,6 +6,7 @@ export const forBanner = [
     name: "4.jpg",
     url:
       "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/4.jpg?alt=media&token=2da8d0d0-692d-4ce4-846a-1db29e37e7e3",
+    // "https://mount-then-bike-bohol.s3-ap-southeast-1.amazonaws.com/38d07589-e082-4ce2-b95d-c9e0fc2ad134-WhatsAppImage2020-04-12at09.57.09.jpeg",
   },
   {
     name: "1.jpg",

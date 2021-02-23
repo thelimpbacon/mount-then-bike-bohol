@@ -11,6 +11,18 @@ export interface IProduct extends Document {
   price: number;
   description: string;
   type: string;
+  mainImage: {
+    public_id: string;
+    url: string;
+    filename: string;
+  };
+  secondaryImage: [
+    {
+      public_id: string;
+      url: string;
+      filename: string;
+    }
+  ];
 }
 
 const ProductSchema: Schema = new mongoose.Schema({
@@ -26,6 +38,30 @@ const ProductSchema: Schema = new mongoose.Schema({
   type: {
     type: SchemaTypes.String,
   },
+  mainImage: {
+    public_id: {
+      type: SchemaTypes.String,
+    },
+    url: {
+      type: SchemaTypes.String,
+    },
+    filename: {
+      type: SchemaTypes.String,
+    },
+  },
+  secondaryImage: [
+    {
+      public_id: {
+        type: SchemaTypes.String,
+      },
+      url: {
+        type: SchemaTypes.String,
+      },
+      filename: {
+        type: SchemaTypes.String,
+      },
+    },
+  ],
 });
 
 const collectionName: string = "product";
