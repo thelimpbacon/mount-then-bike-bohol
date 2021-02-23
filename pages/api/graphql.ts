@@ -38,6 +38,8 @@ const typeDefs = gql`
   type Query {
     getProduct(_id: ID!): Product
     getAllProducts: [Product]
+    getAllBikes: [Product]
+    getAllAccesories: [Product]
   }
 
   type Mutation {
@@ -50,7 +52,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     getProduct: async (
-      _root,
+      _root: any,
       { _id },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -69,8 +71,8 @@ const resolvers = {
       return product;
     },
     getAllProducts: async (
-      _root,
-      __args,
+      _root: any,
+      __args: any,
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -86,11 +88,48 @@ const resolvers = {
 
       return products;
     },
+
+    getAllBikes: async (
+      _root: any,
+      __args: any,
+      { dbConnection }: { dbConnection: Connection }
+    ): Promise<Array<IProduct>> => {
+      const ProductModel: Model<IProduct> = productModel(dbConnection);
+
+      let products: Array<IProduct>;
+
+      try {
+        products = await ProductModel.find({ type: "Bike" });
+      } catch (error) {
+        console.error("getAllProducts error: ", error);
+        throw new ApolloError("Error retrieving all products");
+      }
+
+      return products;
+    },
+    getAllAccesories: async (
+      _root: any,
+      __args: any,
+      { dbConnection }: { dbConnection: Connection }
+    ): Promise<Array<IProduct>> => {
+      const ProductModel: Model<IProduct> = productModel(dbConnection);
+
+      let products: Array<IProduct>;
+
+      try {
+        products = await ProductModel.find({ type: "Accesories" });
+      } catch (error) {
+        console.error("getAllProducts error: ", error);
+        throw new ApolloError("Error retrieving all products");
+      }
+
+      return products;
+    },
   },
 
   Mutation: {
     addProduct: async (
-      _root,
+      _root: any,
       { input },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -109,7 +148,7 @@ const resolvers = {
     },
 
     editProduct: async (
-      _root,
+      _root: any,
       { _id, input },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -126,7 +165,7 @@ const resolvers = {
     },
 
     deleteProduct: async (
-      _root,
+      _root: any,
       { _id },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<boolean> => {

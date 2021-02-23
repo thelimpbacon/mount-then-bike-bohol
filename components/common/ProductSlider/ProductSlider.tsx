@@ -50,7 +50,7 @@ const ProductSlider: FC = ({ children }) => {
     );
 
     return () => {
-      sliderContainerRef.current!.removeEventListener(
+      sliderContainerRef.current?.removeEventListener(
         "touchstart",
         preventNavigation
       );
@@ -66,7 +66,7 @@ const ProductSlider: FC = ({ children }) => {
       />
       <div
         ref={ref}
-        className="keen-slider h-full transition-opacity duration-150"
+        className="h-full transition-opacity duration-150 keen-slider"
         style={{ opacity: isMounted ? 1 : 0 }}
       >
         {Children.map(children, (child) => {

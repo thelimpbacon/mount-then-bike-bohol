@@ -10,21 +10,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "@lib/tags";
 import { ImageUploader } from "@components/common";
 import s from "./AddProduct.module.css";
-
-interface ImageField {
-  public_id: string;
-  url: string;
-  filename: string;
-}
-
-export interface FormInput {
-  name: string;
-  price: number;
-  description: string;
-  type: string;
-  mainImage: ImageField;
-  secondaryImage: Array<ImageField>;
-}
+import { ImageField, ProductType } from "utils/types/types";
 
 const FORMDEFAULTVALUES = {
   name: "",
@@ -47,7 +33,7 @@ const FORMDEFAULTVALUES = {
 };
 
 const AddProduct = () => {
-  const methods = useForm<FormInput>({
+  const methods = useForm<ProductType>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     shouldFocusError: true,

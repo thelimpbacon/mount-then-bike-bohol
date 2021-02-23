@@ -1,7 +1,15 @@
-export interface Product {
-  id?: string;
+export interface ImageField {
+  public_id: string;
+  url: string;
+  filename: string;
+}
+
+export interface ProductType {
+  _id?: string;
   name: string;
-  price?: number;
-  image?: { name: string; url: string };
-  description?: string;
+  price: number;
+  description: string;
+  type: string;
+  mainImage: ImageField;
+  secondaryImage: Array<ImageField>;
 }
