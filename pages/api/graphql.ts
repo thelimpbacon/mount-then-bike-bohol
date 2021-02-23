@@ -11,6 +11,7 @@ const typeDefs = gql`
     description: String
     type: String
     mainImage: Image
+    secondaryImage: [Image]
   }
 
   type Image {
@@ -31,6 +32,7 @@ const typeDefs = gql`
     description: String
     type: String
     mainImage: ImageInput
+    secondaryImage: [ImageInput]
   }
 
   type Query {

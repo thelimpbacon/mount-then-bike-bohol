@@ -8,9 +8,10 @@ import s from "./ImageUploader.module.css";
 interface ImageUploaderProps {
   name: string;
   rules?: RegisterOptions;
+  defaultValue?: string;
 }
 
-const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
+const ImageUploader = ({ name, rules, defaultValue }: ImageUploaderProps) => {
   const [preview, setPreview] = useState(null);
   const { register, setValue, getValues } = useFormContext();
   const imageRef = useRef<HTMLInputElement>(null);
@@ -65,9 +66,24 @@ const ImageUploader = ({ name, rules }: ImageUploaderProps) => {
 
   return (
     <>
-      <input name={`${name}.public_id`} ref={register({ ...rules })} hidden />
-      <input name={`${name}.url`} ref={register({ ...rules })} hidden />
-      <input name={`${name}.filename`} ref={register({ ...rules })} hidden />
+      <input
+        name={`${name}.public_id`}
+        ref={register({ ...rules })}
+        hidden
+        defaultValue={defaultValue}
+      />
+      <input
+        name={`${name}.url`}
+        ref={register({ ...rules })}
+        hidden
+        defaultValue={defaultValue}
+      />
+      <input
+        name={`${name}.filename`}
+        ref={register({ ...rules })}
+        hidden
+        defaultValue={defaultValue}
+      />
       <input type="file" hidden ref={imageRef} onChange={handleFileChange} />
 
       <div className={s.root}>

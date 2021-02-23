@@ -1,13 +1,15 @@
+//TODO
+// add a redirect after adding product
+// add error management on both image upload and add product calls
+
 import cn from "classnames";
 import { ErrorMessage } from "@hookform/error-message";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "@lib/tags";
 import { ImageUploader } from "@components/common";
 import s from "./AddProduct.module.css";
-
-interface AddProductProps {}
 
 interface ImageField {
   public_id: string;
@@ -21,71 +23,64 @@ export interface FormInput {
   description: string;
   type: string;
   mainImage: ImageField;
-  secondaryImage1: ImageField;
-  secondaryImage2: ImageField;
-  secondaryImage3: ImageField;
-  secondaryImage4: ImageField;
-  secondaryImage5: ImageField;
-  secondaryImage6: ImageField;
+  secondaryImage: Array<ImageField>;
 }
 
-const AddProduct = ({}: AddProductProps) => {
-  const [addProduct] = useMutation(ADD_PRODUCT);
+const FORMDEFAULTVALUES = {
+  name: "",
+  price: 0,
+  description: "",
+  type: "",
+  mainImage: {
+    public_id: "",
+    url: "",
+    filename: "",
+  },
+  secondaryImage: [
+    { public_id: "", url: "", filename: "" },
+    { public_id: "", url: "", filename: "" },
+    { public_id: "", url: "", filename: "" },
+    { public_id: "", url: "", filename: "" },
+    { public_id: "", url: "", filename: "" },
+    { public_id: "", url: "", filename: "" },
+  ],
+};
 
+const AddProduct = () => {
   const methods = useForm<FormInput>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     shouldFocusError: true,
-    defaultValues: {
-      name: "",
-      price: 0,
-      description: "",
-      type: "",
-      mainImage: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage1: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage2: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage3: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage4: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage5: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-      secondaryImage6: {
-        public_id: "",
-        url: "",
-        filename: "",
-      },
-    },
+    defaultValues: FORMDEFAULTVALUES,
   });
+
+  const { fields } = useFieldArray({
+    control: methods.control,
+    name: "secondaryImage",
+  });
+
+  const [addProduct, { loading: addProductLoading }] = useMutation(
+    ADD_PRODUCT,
+    {
+      onCompleted: (data) => {
+        // reset form
+        methods.reset(FORMDEFAULTVALUES);
+        //redirect to product
+      },
+    }
+  );
 
   const onSubmit = async (data: any, e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(data);
 
     await addProduct({
       variables: {
-        input: { ...data },
+        input: {
+          ...data,
+          secondaryImage: data.secondaryImage.filter(
+            (image: ImageField) => image.public_id !== ""
+          ),
+        },
       },
     });
   };
@@ -136,9 +131,13 @@ const AddProduct = ({}: AddProductProps) => {
             <div className={s.inputContainer}>
               <label className={s.label}>Product description</label>
               <TextareaAutosize
-                className={cn(s.input, {
-                  [s.inputError]: methods.errors?.description?.message,
-                })}
+                className={cn(
+                  s.input,
+                  {
+                    [s.inputError]: methods.errors?.description?.message,
+                  },
+                  "whitespace-pre"
+                )}
                 ref={methods.register({
                   required: { value: true, message: "This is required." },
                 })}
@@ -192,29 +191,25 @@ const AddProduct = ({}: AddProductProps) => {
             <div className={cn(s.inputContainer)}>
               <label className={s.label}>Secondary images</label>
               <div className="grid grid-cols-2 gap-2">
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage1" />
-                </div>
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage2" />
-                </div>
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage3" />
-                </div>
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage4" />
-                </div>
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage5" />
-                </div>
-                <div className={cn(s.input, "max-h-36")}>
-                  <ImageUploader name="secondaryImage6" />
-                </div>
+                {fields.map((item, index) => {
+                  return (
+                    <div key={item.id} className={cn(s.input, "max-h-36")}>
+                      <ImageUploader
+                        name={`secondaryImage[${index}]`}
+                        defaultValue=""
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             <div className={s.inputContainer}>
-              <button className={s.button} type="submit">
+              <button
+                className={s.button}
+                type="submit"
+                disabled={addProductLoading}
+              >
                 Submit
               </button>
             </div>
