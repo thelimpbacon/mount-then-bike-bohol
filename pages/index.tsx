@@ -2,6 +2,7 @@ import { initializeApollo } from "@lib/apolloClient/client";
 import Banner from "@components/Banner";
 import { TeaserCatalogue } from "@components/common";
 import { GET_ALL_BIKES_AND_ACCESORIES } from "@lib/tags";
+import { GetStaticProps } from "next";
 
 export const forBanner = [
   {
@@ -32,7 +33,7 @@ export const forBanner = [
   },
 ];
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_ALL_BIKES_AND_ACCESORIES,
@@ -41,10 +42,9 @@ export const getStaticProps = async () => {
   return {
     props: {
       forBanner,
-      forBikes: data.getAllBikes,
-      forAccessories: data.getAllAccesories,
+      forBikes: data.getAllBikes || [],
+      forAccessories: data.getAllAccesories || [],
     },
-    revalidate: 60,
   };
 };
 

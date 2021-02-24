@@ -5,9 +5,7 @@ import {
   InMemoryCache,
 } from "@apollo/client/core";
 import { onError } from "@apollo/link-error";
-import { createUploadLink } from "apollo-upload-client";
 import { useMemo } from "react";
-import fetch from "isomorphic-unfetch";
 
 const isBrowser = typeof window !== "undefined";
 let apolloClient = null;
@@ -19,7 +17,6 @@ const httpLink = createHttpLink({
   headers: {
     "Content-Type": "application/json",
   },
-  fetch,
 });
 
 const errorLink = onError(({ networkError, graphQLErrors }) => {
