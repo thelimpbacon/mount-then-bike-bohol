@@ -1,6 +1,11 @@
 import productModel, { IProduct } from "@lib/db/models/Product";
 import { dbConnect } from "@lib/db/dbConnect";
-import { ApolloServer, gql, ApolloError } from "apollo-server-micro";
+import {
+  ApolloServer,
+  gql,
+  ApolloError,
+  makeExecutableSchema,
+} from "apollo-server-micro";
 import { Connection, Model } from "mongoose";
 
 const typeDefs = gql`
@@ -183,12 +188,17 @@ const resolvers = {
   },
 };
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   context: async () => {
-    const dbConnection = await dbConnect();
-    return { dbConnection };
+    try {
+      const dbConnection = await dbConnect();
+      return { dbConnection };
+    } catch (error) {
+      throw new ApolloError("Cannot connect to db.");
+    }
   },
 });
 
