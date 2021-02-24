@@ -1,8 +1,6 @@
 import { AddProduct } from "@components/admin";
 
-interface Props {}
-
-const AddProductPage = ({}: Props) => {
+const AddProductPage = () => {
   return (
     <div>
       <AddProduct />

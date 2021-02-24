@@ -1,25 +1,25 @@
-import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client/core";
+import {
+  ApolloClient,
+  ApolloLink,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client/core";
 import { onError } from "@apollo/link-error";
 import { createUploadLink } from "apollo-upload-client";
 import { useMemo } from "react";
-// import fetch from "isomorphic-unfetch";
+import fetch from "isomorphic-unfetch";
 
 const isBrowser = typeof window !== "undefined";
 let apolloClient = null;
-const APOLLO_URL = `${
-  process.env.NODE_ENV === "development" ? "http://" : "https://"
-}${process.env.VERCEL_URL}/api/graphql`;
-
-console.log("apolloURL: ", APOLLO_URL);
 
 // http link
-const httpLink = createUploadLink({
-  uri: APOLLO_URL,
+const httpLink = createHttpLink({
+  uri: `${process.env.SITE_URL}/api/graphql`,
   credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
   headers: {
     "Content-Type": "application/json",
   },
-  // fetch,
+  fetch,
 });
 
 const errorLink = onError(({ networkError, graphQLErrors }) => {
@@ -37,7 +37,8 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: !isBrowser,
-    link: ApolloLink.from([errorLink, httpLink]),
+    // link: ApolloLink.from([errorLink, httpLink]),
+    link: httpLink,
     cache: new InMemoryCache(),
   });
 }
