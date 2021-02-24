@@ -41,8 +41,8 @@ export const getStaticProps = async () => {
   return {
     props: {
       forBanner,
-      forBikes: data?.getAllBikes,
-      forAccessories: data?.getAllAccesories,
+      forBikes: data.getAllBikes,
+      forAccessories: data.getAllAccesories,
     },
     revalidate: 60,
   };

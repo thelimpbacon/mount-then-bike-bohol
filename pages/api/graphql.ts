@@ -102,7 +102,7 @@ const resolvers = {
         products = await ProductModel.find({ type: "Bike" });
       } catch (error) {
         console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
+        throw new ApolloError("Error retrieving all bikes");
       }
 
       return products;
@@ -120,7 +120,7 @@ const resolvers = {
         products = await ProductModel.find({ type: "Accesories" });
       } catch (error) {
         console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
+        throw new ApolloError("Error retrieving all accesories");
       }
 
       return products;
