@@ -10,6 +10,7 @@ const typeDefs = gql`
     price: Float
     description: String
     type: String
+<<<<<<< HEAD
     mainImage: Image
     secondaryImage: [Image]
   }
@@ -24,6 +25,8 @@ const typeDefs = gql`
     public_id: String
     url: String
     filename: String
+=======
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
   }
 
   input ProductInput {
@@ -31,15 +34,21 @@ const typeDefs = gql`
     price: Float
     description: String
     type: String
+<<<<<<< HEAD
     mainImage: ImageInput
     secondaryImage: [ImageInput]
+=======
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
   }
 
   type Query {
     getProduct(_id: ID!): Product
     getAllProducts: [Product]
+<<<<<<< HEAD
     getAllBikes: [Product]
     getAllAccesories: [Product]
+=======
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
   }
 
   type Mutation {
@@ -52,7 +61,11 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     getProduct: async (
+<<<<<<< HEAD
       _root: any,
+=======
+      _root,
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
       { _id },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -71,8 +84,13 @@ const resolvers = {
       return product;
     },
     getAllProducts: async (
+<<<<<<< HEAD
       _root: any,
       __args: any,
+=======
+      _root,
+      __args,
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -88,6 +106,7 @@ const resolvers = {
 
       return products;
     },
+<<<<<<< HEAD
 
     getAllBikes: async (
       _root: any,
@@ -125,11 +144,17 @@ const resolvers = {
 
       return products;
     },
+=======
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
   },
 
   Mutation: {
     addProduct: async (
+<<<<<<< HEAD
       _root: any,
+=======
+      _root,
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
       { input },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -148,7 +173,11 @@ const resolvers = {
     },
 
     editProduct: async (
+<<<<<<< HEAD
       _root: any,
+=======
+      _root,
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
       { _id, input },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<IProduct> => {
@@ -165,7 +194,11 @@ const resolvers = {
     },
 
     deleteProduct: async (
+<<<<<<< HEAD
       _root: any,
+=======
+      _root,
+>>>>>>> d774568005979e9c93fc60e3ae066c627e9fa9ca
       { _id },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<boolean> => {
