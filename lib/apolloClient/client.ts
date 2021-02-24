@@ -37,7 +37,8 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: !isBrowser,
-    link: ApolloLink.from([errorLink, httpLink]),
+    // link: ApolloLink.from([errorLink, httpLink]),
+    link: httpLink,
     cache: new InMemoryCache(),
   });
 }
