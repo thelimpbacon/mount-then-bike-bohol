@@ -1,8 +1,6 @@
 import Link from "next/link";
 
-interface Props {}
-
-const index = ({}: Props) => {
+const index = () => {
   return (
     <div>
       <ul>
