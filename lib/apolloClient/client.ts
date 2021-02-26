@@ -9,7 +9,10 @@ let apolloClient = null;
 
 // http link
 const httpLink = createUploadLink({
-  uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/graphql`,
+  uri:
+    process.env.NODE_ENV === "development"
+      ? "http://192.168.178.22:3000/api/graphql"
+      : "https://mount-then-bike-bohol.vercel.app/api/graphql",
   credentials: "include", // Additional fetch() options like `credentials` or `headers`
   fetch,
 });

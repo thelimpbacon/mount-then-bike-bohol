@@ -2,13 +2,13 @@ import { initializeApollo } from "@lib/apolloClient/client";
 import Banner from "@components/Banner";
 import { TeaserCatalogue } from "@components/common";
 import { GET_ALL_BIKES_AND_ACCESORIES } from "@lib/tags";
+import { GetStaticProps } from "next";
 
 export const forBanner = [
   {
     name: "4.jpg",
     url:
       "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/4.jpg?alt=media&token=2da8d0d0-692d-4ce4-846a-1db29e37e7e3",
-    // "https://mount-then-bike-bohol.s3-ap-southeast-1.amazonaws.com/38d07589-e082-4ce2-b95d-c9e0fc2ad134-WhatsAppImage2020-04-12at09.57.09.jpeg",
   },
   {
     name: "1.jpg",
@@ -32,23 +32,7 @@ export const forBanner = [
   },
 ];
 
-export const getStaticProps = async () => {
-  const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query({
-    query: GET_ALL_BIKES_AND_ACCESORIES,
-  });
-
-  return {
-    props: {
-      forBanner,
-      forBikes: data?.getAllBikes,
-      forAccessories: data?.getAllAccesories,
-    },
-    revalidate: 60,
-  };
-};
-
-export default function Home({ forBanner, forBikes, forAccessories }) {
+const Home = ({ forBanner, forBikes, forAccessories }) => {
   return (
     <div className="md:relative -top-32">
       <Banner picsUrl={forBanner} />
@@ -62,4 +46,22 @@ export default function Home({ forBanner, forBikes, forAccessories }) {
       </div>
     </div>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
+    query: GET_ALL_BIKES_AND_ACCESORIES,
+  });
+
+  return {
+    props: {
+      forBanner,
+      forBikes: data.getAllBikes,
+      forAccessories: data.getAllAccesories,
+    },
+    revalidate: 60,
+  };
+};
+
+export default Home;
