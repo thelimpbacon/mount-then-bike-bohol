@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="flex items-center flex-1">
           <Link href="/">
             <a className={s.logo} aria-label="Logo">
-              <img className="h-8 w-8 rounded-sm" src="/mtbb.png" />
+              <img className="w-8 h-8 rounded-full" src="/mtbb.png" />
             </a>
           </Link>
           <nav className="hidden ml-6 space-x-4 lg:block">
@@ -49,11 +49,11 @@ const Navbar = () => {
           </nav>
         </div>
 
-        <div className="justify-end flex-1 flex lg:justify-center">
+        <div className="flex justify-end flex-1 lg:justify-center">
           <Searchbar />
         </div>
 
-        <div className="hidden lg:flex justify-end flex-1 space-x-8">
+        <div className="justify-end flex-1 hidden space-x-8 lg:flex">
           {/* Night mode toggle here */}
         </div>
       </div>

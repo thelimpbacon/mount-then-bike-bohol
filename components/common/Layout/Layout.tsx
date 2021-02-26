@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import cn from "classnames";
 import s from "./Layout.module.css";
-import { Navbar } from "@components/common";
+import { Footer, Navbar } from "@components/common";
 
 interface LayoutProps {
   className?: string;
@@ -14,6 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className={cn(s.root)}>
       <Navbar />
       <main className="fit">{children}</main>
+      <Footer />
     </div>
   );
 };

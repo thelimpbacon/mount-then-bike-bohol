@@ -1,0 +1,11 @@
+.root {
+  @apply grid grid-cols-1 p-4 mt-10 space-y-6 bg-black lg:p-10 lg:grid-cols-2 bg-opacity-90 lg:space-x-10 lg:space-y-0;
+}
+
+.logo {
+  @apply w-16 h-16 mr-3 rounded-full lg:w-32 lg:h-32 lg:mr-5;
+}
+
+.leftContent {
+  @apply flex items-center justify-center lg:items-start lg:justify-start;
+}

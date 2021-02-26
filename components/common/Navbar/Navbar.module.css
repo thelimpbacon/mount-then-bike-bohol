@@ -1,9 +1,9 @@
 .root {
-  @apply sticky shadow-md top-0 z-40 transition-all duration-150 px-5;
+  @apply sticky top-0 z-40 px-5 transition-all duration-150 shadow-md;
 }
 
 .link {
-  @apply text-white inline-flex items-center leading-6 font-medium transition ease-in-out duration-75 cursor-pointer;
+  @apply inline-flex items-center font-medium leading-6 text-white transition duration-75 ease-in-out cursor-pointer;
 }
 
 .link:focus {
@@ -11,10 +11,10 @@
 }
 
 .logo {
-  @apply cursor-pointer rounded-full border transform duration-100 ease-in-out hover:shadow-md;
+  @apply duration-100 ease-in-out transform border rounded-full cursor-pointer hover:shadow-md;
 }
 
 .logo :hover {
   /* @apply shadow-md; */
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
