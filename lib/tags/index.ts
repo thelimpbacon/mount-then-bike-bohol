@@ -61,10 +61,3 @@ export const GET_ALL_ACCESORIES = gql`
     }
   }
 `;
-
-// mutation
-export const ADD_PRODUCT = gql`
-  mutation addProduct($input: ProductInput) {
-    addProduct(input: $input)
-  }
-`;

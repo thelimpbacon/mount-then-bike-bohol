@@ -20,32 +20,11 @@ const typeDefs = gql`
     filename: String
   }
 
-  input ImageInput {
-    public_id: String
-    url: String
-    filename: String
-  }
-
-  input ProductInput {
-    name: String
-    price: Float
-    description: String
-    type: String
-    mainImage: ImageInput
-    secondaryImage: [ImageInput]
-  }
-
   type Query {
     getProduct(_id: ID!): Product
     getAllProducts: [Product]
     getAllBikes: [Product]
     getAllAccesories: [Product]
-  }
-
-  type Mutation {
-    addProduct(input: ProductInput): ID
-    editProduct(_id: ID!, input: ProductInput): ID
-    deleteProduct(_id: ID!): Boolean
   }
 `;
 
@@ -124,61 +103,6 @@ const resolvers = {
       }
 
       return products;
-    },
-  },
-
-  Mutation: {
-    addProduct: async (
-      _root: any,
-      { input },
-      { dbConnection }: { dbConnection: Connection }
-    ): Promise<IProduct> => {
-      const Product = productModel(dbConnection);
-
-      const newProduct = new Product({ ...input });
-
-      try {
-        await newProduct.save();
-      } catch (error) {
-        console.error("addProduct error: ", error);
-        throw new ApolloError("Error adding product");
-      }
-
-      return newProduct._id;
-    },
-
-    editProduct: async (
-      _root: any,
-      { _id, input },
-      { dbConnection }: { dbConnection: Connection }
-    ): Promise<IProduct> => {
-      const Product = productModel(dbConnection);
-
-      try {
-        await Product.findByIdAndUpdate(_id, { ...input });
-      } catch (error) {
-        console.error("editProduct error: ", error);
-        throw new ApolloError("Error editing product");
-      }
-
-      return _id;
-    },
-
-    deleteProduct: async (
-      _root: any,
-      { _id },
-      { dbConnection }: { dbConnection: Connection }
-    ): Promise<boolean> => {
-      const Product = productModel(dbConnection);
-
-      try {
-        await Product.findByIdAndDelete(_id);
-      } catch (error) {
-        console.error("deleteProduct error: ", error);
-        throw new ApolloError("Error deleting product");
-      }
-
-      return true;
     },
   },
 };

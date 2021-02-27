@@ -5,6 +5,4 @@ export { default as Navbar } from "./Navbar";
 export { default as Searchbar } from "./Searchbar";
 export { default as ProductSlider } from "./ProductSlider";
 export { default as TeaserCatalogue } from "./TeaserCatalogue";
-export { default as ImageUploader } from "./ImageUploader";
-export { default as UploadProgress } from "./UploadProgress";
 export { default as ProductView } from "./ProductView";

@@ -1,6 +1,10 @@
-import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client/core";
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client/core";
 import { onError } from "@apollo/link-error";
-import { createUploadLink } from "apollo-upload-client";
 import { useMemo } from "react";
 import fetch from "isomorphic-unfetch";
 
@@ -8,7 +12,7 @@ const isBrowser = typeof window !== "undefined";
 let apolloClient = null;
 
 // http link
-const httpLink = createUploadLink({
+const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://192.168.178.22:3000/api/graphql"
