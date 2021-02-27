@@ -122,7 +122,7 @@ const AddProduct = () => {
                   {
                     [s.inputError]: methods.errors?.description?.message,
                   },
-                  "whitespace-pre"
+                  "whitespace-pre-wrap"
                 )}
                 ref={methods.register({
                   required: { value: true, message: "This is required." },
