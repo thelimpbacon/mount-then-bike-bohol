@@ -7,5 +7,5 @@
 }
 
 .leftContent {
-  @apply flex items-center justify-center lg:items-start lg:justify-start;
+  @apply flex items-center justify-center lg:justify-start;
 }
