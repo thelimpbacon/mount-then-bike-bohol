@@ -5,9 +5,13 @@ const Footer = () => {
   return (
     <div className={s.root}>
       <div className={s.leftContent}>
-        <img className={s.logo} src="/mtbb.png" alt="mount-then-bike-bohol" />
+        <img
+          className={s.logo}
+          src="/mtbb.png"
+          alt="Mount, then bike Bohol logo"
+        />
         <div className="text-center text-white lg:text-left ">
-          <div className="mb-1 font-semibold">Mount, then Bike Bohol </div>
+          <div className="mb-1 font-semibold">Mount, then Bike Bohol</div>
           <p className="text-sm">
             The newest and most affordable bikes available on the market have
             invaded Bohol.

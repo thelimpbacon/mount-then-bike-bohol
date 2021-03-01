@@ -17,6 +17,7 @@ const Card = ({ product }: CardProps) => {
       <a className={s.rootCard}>
         <Image
           className="object-cover w-full h-auto rounded-t-lg"
+          alt={product.mainImage.filename}
           src={product.mainImage?.url}
           height={200}
           width={300}

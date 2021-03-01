@@ -33,7 +33,11 @@ const Navbar = () => {
         <div className="flex items-center flex-1">
           <Link href="/">
             <a className={s.logo} aria-label="Logo">
-              <img className="w-8 h-8 rounded-full" src="/mtbb.png" />
+              <img
+                className="w-8 h-8 rounded-full"
+                src="/mtbb.png"
+                alt="Mount, then bike Bohol logo"
+              />
             </a>
           </Link>
           <nav className="hidden ml-6 space-x-4 lg:block ">

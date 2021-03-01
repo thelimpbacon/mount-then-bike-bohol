@@ -1,4 +1,4 @@
-import Head from "next/head";
+import NextHead from "next/head";
 import DefaultErrorPage from "next/error";
 import { useRouter } from "next/router";
 import { initializeApollo } from "@lib/apolloClient/client";
@@ -19,9 +19,9 @@ const Product = (props: ProductType) => {
   if (!props._id) {
     return (
       <>
-        <Head>
+        <NextHead>
           <meta name="robots" content="noindex" />
-        </Head>
+        </NextHead>
         <DefaultErrorPage statusCode={404} />
       </>
     );

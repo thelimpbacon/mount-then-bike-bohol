@@ -14,6 +14,7 @@ const Banner = ({ picsUrl }: BannerProps) => {
           <div key={pic.name} className={s.imageContainer}>
             <Image
               className={s.img}
+              alt={pic.name}
               src={pic.url}
               height={600}
               width={1000}
