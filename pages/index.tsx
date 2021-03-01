@@ -3,6 +3,7 @@ import Banner from "@components/Banner";
 import { TeaserCatalogue } from "@components/common";
 import { GET_ALL_BIKES_AND_ACCESORIES } from "@lib/tags";
 import { GetStaticProps } from "next";
+import Link from "next/link";
 
 export const forBanner = [
   {
@@ -37,11 +38,19 @@ const Home = ({ forBanner, forBikes, forAccessories }) => {
     <div className="md:relative -top-32">
       <Banner picsUrl={forBanner} />
       <div className="p-1 md:p-6">
-        <div className="text-2xl ">Our bikes</div>
+        <Link href="/bikes">
+          <a>
+            <div className="text-2xl ">Our bikes</div>
+          </a>
+        </Link>
         <TeaserCatalogue products={forBikes} />
       </div>
       <div className="p-1 md:p-6">
-        <div className="text-2xl ">Our accesories</div>
+        <Link href="/accesories">
+          <a>
+            <div className="text-2xl ">Our accesories</div>
+          </a>
+        </Link>
         <TeaserCatalogue products={forAccessories} />
       </div>
     </div>

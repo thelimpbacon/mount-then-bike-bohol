@@ -36,14 +36,11 @@ const Navbar = () => {
               <img className="w-8 h-8 rounded-full" src="/mtbb.png" />
             </a>
           </Link>
-          <nav className="hidden ml-6 space-x-4 lg:block">
-            <Link href="/">
-              <a className={s.link}>All</a>
-            </Link>
-            <Link href="/">
+          <nav className="hidden ml-6 space-x-4 lg:block ">
+            <Link href="/bikes">
               <a className={s.link}>Bikes</a>
             </Link>
-            <Link href="/">
+            <Link href="/accesories">
               <a className={s.link}>Accessories</a>
             </Link>
           </nav>

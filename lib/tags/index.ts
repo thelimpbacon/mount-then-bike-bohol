@@ -58,6 +58,26 @@ export const GET_ALL_ACCESORIES = gql`
   query getAllAccesories {
     getAllAccesories {
       _id
+      name
+      mainImage {
+        public_id
+        url
+        filename
+      }
+    }
+  }
+`;
+
+export const GET_ALL_BIKES = gql`
+  query getAllBikes {
+    getAllBikes {
+      _id
+      name
+      mainImage {
+        public_id
+        url
+        filename
+      }
     }
   }
 `;
