@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       forAccessories: data.getAllAccesories,
     },
-    revalidate: 60,
+    revalidate: 600,
   };
 };
 

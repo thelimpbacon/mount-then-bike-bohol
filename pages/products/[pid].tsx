@@ -54,6 +54,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { ...q.data.getProduct },
-    revalidate: 60,
+    revalidate: 600,
   };
 };

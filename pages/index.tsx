@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
       forBikes: data.getAllBikes,
       forAccessories: data.getAllAccesories,
     },
-    revalidate: 60,
+    revalidate: 600,
   };
 };
 

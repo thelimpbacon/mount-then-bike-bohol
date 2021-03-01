@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       forBikes: data.getAllBikes,
     },
-    revalidate: 60,
+    revalidate: 600,
   };
 };
 
