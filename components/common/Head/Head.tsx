@@ -37,6 +37,7 @@ const Head = () => {
       />
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#ffffff" />
+      <meta name="author" content="Vaughn Dalde" />
     </NextHead>
   );
 };
