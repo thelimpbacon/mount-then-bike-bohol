@@ -81,3 +81,28 @@ export const GET_ALL_BIKES = gql`
     }
   }
 `;
+
+export const SEARCH_PRODUCTS = gql`
+  query searchProducts($searchString: String) {
+    searchProducts(searchString: $searchString) {
+      _id
+      name
+      description
+      mainImage {
+        public_id
+        url
+        filename
+      }
+      highlights {
+        name {
+          value
+          type
+        }
+        type {
+          value
+          type
+        }
+      }
+    }
+  }
+`;

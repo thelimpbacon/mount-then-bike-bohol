@@ -25,6 +25,16 @@ export interface IProduct extends Document {
   ];
 }
 
+export interface ISearch extends IProduct {
+  highlights: Array<{
+    path: "name" | "type";
+    texts: Array<{
+      value: string;
+      type: "text" | "hit";
+    }>;
+  }>;
+}
+
 const ProductSchema: Schema = new mongoose.Schema({
   name: {
     type: SchemaTypes.String,
@@ -64,9 +74,32 @@ const ProductSchema: Schema = new mongoose.Schema({
   ],
 });
 
+export interface IParsedSearchProduct {
+  name: string;
+  price: number;
+  description: string;
+  type: string;
+  mainImage: {
+    public_id: string;
+    url: string;
+    filename: string;
+  };
+  secondaryImage: [
+    {
+      public_id: string;
+      url: string;
+      filename: string;
+    }
+  ];
+  highlights: {
+    name?: { value: string; type: "text" | "hit" }[];
+    type?: { value: string; type: "text" | "hit" }[];
+  };
+}
+
 const collectionName: string = "product";
 
-const productModel = (conn: Connection): Model<IProduct> =>
+const productModel = (conn: Connection): Model<IProduct | ISearch> =>
   //@ts-ignore
   conn.model(collectionName, ProductSchema);
 

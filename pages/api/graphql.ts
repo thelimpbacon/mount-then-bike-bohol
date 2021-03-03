@@ -1,4 +1,8 @@
-import productModel, { IProduct } from "@lib/db/models/Product";
+import productModel, {
+  IProduct,
+  ISearch,
+  IParsedSearchProduct,
+} from "@lib/db/models/Product";
 import { dbConnect } from "@lib/db/dbConnect";
 import { ApolloServer, gql, ApolloError } from "apollo-server-micro";
 import { Connection, Model } from "mongoose";
@@ -14,6 +18,27 @@ const typeDefs = gql`
     secondaryImage: [Image]
   }
 
+  type SearchProduct {
+    _id: ID
+    name: String
+    price: Float
+    description: String
+    type: String
+    mainImage: Image
+    secondaryImage: [Image]
+    highlights: Highlight
+  }
+
+  type Highlight {
+    name: [HighlightText]
+    type: [HighlightText]
+  }
+
+  type HighlightText {
+    value: String
+    type: String
+  }
+
   type Image {
     public_id: String
     url: String
@@ -25,6 +50,7 @@ const typeDefs = gql`
     getAllProducts: [Product]
     getAllBikes: [Product]
     getAllAccesories: [Product]
+    searchProducts(searchString: String): [SearchProduct]
   }
 `;
 
@@ -100,6 +126,66 @@ const resolvers = {
       } catch (error) {
         console.error("getAllProducts error: ", error);
         throw new ApolloError("Error retrieving all products");
+      }
+
+      return products;
+    },
+    searchProducts: async (
+      _root: any,
+      { searchString }: { searchString: string },
+      { dbConnection }: { dbConnection: Connection }
+    ): Promise<IParsedSearchProduct[]> => {
+      const ProductModel: Model<IProduct> = productModel(dbConnection);
+
+      let searchProducts: Array<ISearch>;
+      let products: Array<IParsedSearchProduct> | [];
+
+      try {
+        searchProducts = await ProductModel.aggregate([
+          {
+            $search: {
+              index: "searchIndex",
+              text: {
+                query: searchString,
+                path: ["name", "type"],
+                fuzzy: {
+                  maxEdits: 2,
+                },
+              },
+              highlight: {
+                path: ["name", "type"],
+              },
+            },
+          },
+          {
+            $addFields: {
+              highlights: {
+                $meta: "searchHighlights",
+              },
+            },
+          },
+        ]);
+
+        products =
+          searchProducts.length === 0
+            ? []
+            : searchProducts.map((p) => {
+                const highlightName =
+                  p.highlights.filter((h) => h.path === "name")[0]?.texts || [];
+                const highlightDescription =
+                  p.highlights.filter((h) => h.path === "type")[0]?.texts || [];
+
+                return {
+                  ...p,
+                  highlights: {
+                    name: highlightName,
+                    type: highlightDescription,
+                  },
+                };
+              });
+      } catch (error) {
+        console.error("searchProducts error: ", error);
+        throw new ApolloError("Error searching products");
       }
 
       return products;

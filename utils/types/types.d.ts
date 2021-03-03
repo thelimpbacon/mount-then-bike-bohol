@@ -13,3 +13,10 @@ export interface ProductType {
   mainImage: ImageField;
   secondaryImage: Array<ImageField>;
 }
+
+export interface SearchProductType extends ProductType {
+  highlights: {
+    name: { value: string; type: "text" | "hit" }[];
+    description: { value: string; type: "text" | "hit" }[];
+  };
+}
