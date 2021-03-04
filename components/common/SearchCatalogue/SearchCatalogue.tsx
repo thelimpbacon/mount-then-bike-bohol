@@ -8,7 +8,7 @@ interface CardProps {
   product: SearchProductType;
 }
 
-interface TeaserCatalogueProps {
+interface SearchCatalogueProps {
   products: Array<SearchProductType>;
 }
 
@@ -28,9 +28,12 @@ const Card = ({ product }: CardProps) => {
         <div className="px-4 py-2">
           <h3 className="my-2 text-lg font-medium text-gray-600 uppercase">
             {product.highlights?.name?.length > 0
-              ? product.highlights.name.map((n) => {
+              ? product.highlights.name.map((n, i) => {
                   return (
-                    <span className={cn({ "bg-yellow-200": n.type === "hit" })}>
+                    <span
+                      key={Math.random() + i}
+                      className={cn({ "bg-yellow-200": n.type === "hit" })}
+                    >
                       {n.value}
                     </span>
                   );
@@ -43,7 +46,7 @@ const Card = ({ product }: CardProps) => {
   );
 };
 
-const TeaserCatalogue = ({ products }: TeaserCatalogueProps) => {
+const SearchCatalogue = ({ products }: SearchCatalogueProps) => {
   return (
     <div className={s.root}>
       {products.map((product) => (
@@ -53,4 +56,4 @@ const TeaserCatalogue = ({ products }: TeaserCatalogueProps) => {
   );
 };
 
-export default TeaserCatalogue;
+export default SearchCatalogue;

@@ -1,16 +1,18 @@
 import { SearchResults } from "@components/common";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 
-const Search = () => {
-  const { query } = useRouter();
+const Search = ({ searchString }) => {
   return (
     <div className="lg:min-h-screen">
       <div className="p-2 md:p-6">
-        <SearchResults searchString={query.q as string} />
+        <SearchResults searchString={searchString} />
       </div>
     </div>
   );
 };
 
 export default Search;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  return { props: { searchString: query.q } };
+};
