@@ -4,11 +4,16 @@ import s from "./Navbar.module.css";
 import cn from "classnames";
 import throttle from "lodash.throttle";
 import { Searchbar } from "@components/common";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { pathname } = useRouter();
 
   useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
     const handleScroll = throttle(() => {
       const offset = 0;
       const { scrollTop } = document.documentElement;
@@ -20,13 +25,12 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div
       className={cn(s.root, {
-        "bg-black opacity-80": hasScrolled,
-        // "bg-transparent": !hasScrolled,
+        "bg-black opacity-80": hasScrolled || pathname !== "/",
       })}
     >
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
