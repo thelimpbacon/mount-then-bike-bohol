@@ -5,34 +5,7 @@ import { TeaserCatalogue } from "@components/common";
 import { GET_ALL_BIKES_AND_ACCESORIES } from "@lib/tags";
 import { GetStaticProps } from "next";
 import Link from "next/link";
-
-export const forBanner = [
-  {
-    name: "4.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/4.jpg?alt=media&token=2da8d0d0-692d-4ce4-846a-1db29e37e7e3",
-  },
-  {
-    name: "1.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/1.jpg?alt=media&token=d1ec9986-8591-4bc5-aad5-eaa9f2394a77",
-  },
-  {
-    name: "2.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/2.jpg?alt=media&token=e4ff9de1-0a5c-4e51-b884-d0693e550875",
-  },
-  {
-    name: "3.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/3.jpg?alt=media&token=1c2f3ba7-0bbb-4354-bf47-dfcfe94a1c1e",
-  },
-  {
-    name: "5.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/5.jpg?alt=media&token=96b779ec-6f89-4b60-b3ca-1f33c55acdfb",
-  },
-];
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -53,12 +26,23 @@ const Header = () => {
   );
 };
 
-const Home = ({ forBanner, forBikes, forAccessories }) => {
+const Home = ({ forBikes, forAccessories }) => {
   return (
     <>
       <Header />
-      <div className="md:relative -top-32">
-        <Banner picsUrl={forBanner} />
+      <div className="md:relative -top-52">
+        <div className="hidden overflow-hidden shadow-md md:block">
+          <Image
+            className="object-cover w-full h-auto max-h-full"
+            alt="home image"
+            src="https://res.cloudinary.com/mount-then-bike-bohol/image/upload/v1614095442/d434302a-4b16-4f89-9c38-899b7e1ca830-145893362_211016557381567_321366468149861339_o.jpg.jpg"
+            height={600}
+            width={1000}
+            layout="responsive"
+            priority={true}
+            quality="85"
+          />
+        </div>
         <div className="p-1 md:p-6">
           <Link href="/bikes">
             <a>
@@ -88,7 +72,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      forBanner,
       forBikes: data.getAllBikes,
       forAccessories: data.getAllAccesories,
     },

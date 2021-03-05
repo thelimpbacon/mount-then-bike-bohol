@@ -48,6 +48,16 @@ const Navbar = () => {
             <Link href="/bikes">
               <a className={s.link}>Bikes</a>
             </Link>
+            <Link href="/parts">
+              <a
+                className={cn(
+                  s.link,
+                  "border-l border-r border-gray-200 border-opacity-40 px-4"
+                )}
+              >
+                Spare Parts
+              </a>
+            </Link>
             <Link href="/accesories">
               <a className={s.link}>Accessories</a>
             </Link>

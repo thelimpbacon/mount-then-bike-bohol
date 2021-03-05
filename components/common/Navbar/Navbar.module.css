@@ -3,7 +3,7 @@
 }
 
 .link {
-  @apply inline-flex items-center font-medium leading-6 text-white transition duration-75 ease-in-out cursor-pointer;
+  @apply inline-flex items-center font-medium leading-6 text-white cursor-pointer;
 }
 
 .link:focus {
