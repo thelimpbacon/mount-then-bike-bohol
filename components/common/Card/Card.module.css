@@ -1,0 +1,11 @@
+.root {
+  @apply relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100;
+}
+
+.image {
+  @apply object-cover w-full h-auto transition duration-500 ease-in-out transform rounded-t-lg hover:scale-105;
+}
+
+.name {
+  @apply my-2 text-lg font-medium text-gray-600 uppercase;
+}

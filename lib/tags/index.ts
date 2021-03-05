@@ -36,6 +36,7 @@ export const GET_ALL_BIKES_AND_ACCESORIES = gql`
     getAllBikes {
       _id
       name
+      type
       mainImage {
         public_id
         url
@@ -45,6 +46,7 @@ export const GET_ALL_BIKES_AND_ACCESORIES = gql`
     getAllAccesories {
       _id
       name
+      type
       mainImage {
         public_id
         url
@@ -59,6 +61,7 @@ export const GET_ALL_ACCESORIES = gql`
     getAllAccesories {
       _id
       name
+      type
       mainImage {
         public_id
         url
@@ -73,6 +76,7 @@ export const GET_ALL_BIKES = gql`
     getAllBikes {
       _id
       name
+      type
       mainImage {
         public_id
         url
@@ -87,6 +91,7 @@ export const SEARCH_PRODUCTS = gql`
     searchProducts(searchString: $searchString) {
       _id
       name
+      type
       description
       mainImage {
         public_id
