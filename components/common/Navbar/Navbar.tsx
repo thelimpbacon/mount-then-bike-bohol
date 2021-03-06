@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import s from "./Navbar.module.css";
+import { useRouter } from "next/router";
 import cn from "classnames";
 import throttle from "lodash.throttle";
 import { Searchbar } from "@components/common";
-import { useRouter } from "next/router";
+import s from "./Navbar.module.css";
 
 const Navbar = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -30,11 +30,11 @@ const Navbar = () => {
   return (
     <div
       className={cn(s.root, {
-        "bg-black opacity-80": hasScrolled || pathname !== "/",
+        "bg-black bg-opacity-80": hasScrolled || pathname !== "/",
       })}
     >
-      <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
-        <div className="flex items-center flex-1">
+      <div className="relative flex flex-row justify-between align-center md:py-3">
+        <div className="flex items-center justify-between flex-1 lg:justify-start">
           <Link href="/">
             <a className={s.logo} aria-label="Logo">
               <img
@@ -44,33 +44,44 @@ const Navbar = () => {
               />
             </a>
           </Link>
-          <nav className="hidden ml-6 space-x-4 lg:block ">
+
+          <nav className="space-x-2 lg:ml-6 lg:space-x-4">
             <Link href="/bikes">
-              <a className={s.link}>Bikes</a>
+              <a className={cn(s.link, { "text-black": !hasScrolled })}>
+                Bikes
+              </a>
             </Link>
             <Link href="/parts">
               <a
                 className={cn(
                   s.link,
-                  "border-l border-r border-gray-200 border-opacity-40 px-4"
+                  "border-l border-r border-opacity-40 px-2 lg:px-4",
+                  {
+                    "text-black border-black border-l border-r border-opacity-40 px-2 lg:px-4": !hasScrolled,
+                  }
                 )}
               >
-                Spare Parts
+                Parts
               </a>
             </Link>
-            <Link href="/accesories">
-              <a className={s.link}>Accessories</a>
+            <Link href="/accessories">
+              <a className={cn(s.link, { "text-black": !hasScrolled })}>
+                Accessories
+              </a>
             </Link>
           </nav>
         </div>
 
-        <div className="flex justify-end flex-1 lg:justify-center">
+        <div className="justify-end flex-1 hidden lg:flex lg:justify-center">
           <Searchbar />
         </div>
 
         <div className="justify-end flex-1 hidden space-x-8 lg:flex">
           {/* Night mode toggle here */}
         </div>
+      </div>
+      <div className="flex flex-1 pt-3 lg:hidden">
+        <Searchbar id="mobile" />
       </div>
     </div>
   );

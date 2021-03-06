@@ -47,9 +47,8 @@ const typeDefs = gql`
 
   type Query {
     getProduct(_id: ID!): Product
-    getAllProducts: [Product]
-    getAllBikes: [Product]
-    getAllAccesories: [Product]
+    getAllProducts(limit: Int): [Product]
+    getType(type: String!, limit: Int): [Product]
     searchProducts(searchString: String): [SearchProduct]
   }
 `;
@@ -77,7 +76,7 @@ const resolvers = {
     },
     getAllProducts: async (
       _root: any,
-      __args: any,
+      { limit = null }: { limit?: number | null },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -85,7 +84,9 @@ const resolvers = {
       let products: Array<IProduct>;
 
       try {
-        products = await ProductModel.find();
+        products = await ProductModel.find()
+          .sort({ createdAt: "desc" })
+          .limit(limit);
       } catch (error) {
         console.error("getAllProducts error: ", error);
         throw new ApolloError("Error retrieving all products");
@@ -93,10 +94,9 @@ const resolvers = {
 
       return products;
     },
-
-    getAllBikes: async (
+    getType: async (
       _root: any,
-      __args: any,
+      { type, limit = null }: { type: string; limit?: number | null },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -104,28 +104,14 @@ const resolvers = {
       let products: Array<IProduct>;
 
       try {
-        products = await ProductModel.find({ type: "Bike" });
+        products = await ProductModel.find({ type })
+          .sort({
+            createdAt: "desc",
+          })
+          .limit(limit);
       } catch (error) {
-        console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
-      }
-
-      return products;
-    },
-    getAllAccesories: async (
-      _root: any,
-      __args: any,
-      { dbConnection }: { dbConnection: Connection }
-    ): Promise<Array<IProduct>> => {
-      const ProductModel: Model<IProduct> = productModel(dbConnection);
-
-      let products: Array<IProduct>;
-
-      try {
-        products = await ProductModel.find({ type: "Accesories" });
-      } catch (error) {
-        console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
+        console.error("getAllType error: ", error);
+        throw new ApolloError(`Error retrieving type:${type}`);
       }
 
       return products;

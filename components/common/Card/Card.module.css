@@ -1,5 +1,5 @@
 .root {
-  @apply relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100;
+  @apply relative mx-2 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100;
 }
 
 .image {
@@ -7,5 +7,5 @@
 }
 
 .name {
-  @apply my-2 text-lg font-medium text-gray-600 uppercase;
+  @apply my-1 text-sm font-medium text-gray-600 uppercase line-clamp-2 md:my-2 md:text-base lg:line-clamp-none;
 }

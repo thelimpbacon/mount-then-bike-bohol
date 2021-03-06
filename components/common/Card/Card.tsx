@@ -19,21 +19,21 @@ const IconContainer = ({ type }: { type: string }) => {
   if (type === "Bike") {
     return (
       <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
-        <Bike className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+        <Bike className="w-8 h-8 text-gray-200 lg:w-10 lg:h-10" />
       </div>
     );
   }
   if (type === "Parts") {
     return (
       <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
-        <Chainset className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+        <Chainset className="w-8 h-8 text-gray-200 lg:w-10 lg:h-10" />
       </div>
     );
   }
-  if (type === "Accesories") {
+  if (type === "Accessories") {
     return (
       <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
-        <Helmet className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+        <Helmet className="w-8 h-8 text-gray-200 lg:w-10 lg:h-10" />
       </div>
     );
   }
@@ -55,7 +55,7 @@ const Card = ({ _id, name, mainImage, type, highlights }: CardProps) => {
           layout="responsive"
           quality="85"
         />
-        <div className="px-4 py-2">
+        <div className="p-1 lg:px-4 lg:py-2 h-14 lg:h-auto ">
           <h3 className={s.name}>
             {highlights?.name?.length > 0
               ? highlights.name.map((n, i) => {

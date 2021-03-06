@@ -1,7 +1,7 @@
 import NextHead from "next/head";
 import { initializeApollo } from "@lib/apolloClient/client";
 import { TeaserCatalogue } from "@components/common";
-import { GET_ALL_ACCESORIES } from "@lib/tags";
+import { GET_TYPE } from "@lib/tags";
 import { GetStaticProps } from "next";
 
 const Header = () => {
@@ -33,9 +33,9 @@ const Home = ({ forAccessories }) => {
   return (
     <>
       <Header />
-      <div className="lg:min-h-screen">
+      <div className="min-h-screen">
         <div className="p-1 md:p-6">
-          <div className="text-2xl ">Our accesories</div>
+          <div className="text-2xl ">Our accessories</div>
           <TeaserCatalogue products={forAccessories} />
         </div>
       </div>
@@ -46,12 +46,15 @@ const Home = ({ forAccessories }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
-    query: GET_ALL_ACCESORIES,
+    query: GET_TYPE,
+    variables: {
+      type: "Accessories",
+    },
   });
 
   return {
     props: {
-      forAccessories: data.getAllAccesories,
+      forAccessories: data.getType,
     },
     revalidate: 600,
   };

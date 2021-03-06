@@ -50,7 +50,7 @@ const Searchbar = ({ className, id = "search" }: SearchbarProps) => {
         id={id}
         className={s.input}
         name="searchString"
-        placeholder="Search for products..."
+        placeholder="Search..."
         ref={register({ required: true })}
       />
       <button className={s.iconContainer}>

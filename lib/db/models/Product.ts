@@ -35,32 +35,21 @@ export interface ISearch extends IProduct {
   }>;
 }
 
-const ProductSchema: Schema = new mongoose.Schema({
-  name: {
-    type: SchemaTypes.String,
-  },
-  price: {
-    type: SchemaTypes.Number,
-  },
-  description: {
-    type: SchemaTypes.String,
-  },
-  type: {
-    type: SchemaTypes.String,
-  },
-  mainImage: {
-    public_id: {
+const ProductSchema: Schema = new mongoose.Schema(
+  {
+    name: {
       type: SchemaTypes.String,
     },
-    url: {
+    price: {
+      type: SchemaTypes.Number,
+    },
+    description: {
       type: SchemaTypes.String,
     },
-    filename: {
+    type: {
       type: SchemaTypes.String,
     },
-  },
-  secondaryImage: [
-    {
+    mainImage: {
       public_id: {
         type: SchemaTypes.String,
       },
@@ -71,8 +60,24 @@ const ProductSchema: Schema = new mongoose.Schema({
         type: SchemaTypes.String,
       },
     },
-  ],
-});
+    secondaryImage: [
+      {
+        public_id: {
+          type: SchemaTypes.String,
+        },
+        url: {
+          type: SchemaTypes.String,
+        },
+        filename: {
+          type: SchemaTypes.String,
+        },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export interface IParsedSearchProduct {
   name: string;
