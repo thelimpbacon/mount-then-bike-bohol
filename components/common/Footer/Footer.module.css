@@ -1,5 +1,5 @@
 .root {
-  @apply grid grid-cols-1 p-4 mt-10 space-y-6 bg-black lg:p-10 lg:grid-cols-2 bg-opacity-90 lg:space-x-10 lg:space-y-0;
+  @apply grid grid-cols-1 p-4 mt-10 space-y-6 bg-black lg:py-8 lg:p-10 lg:grid-cols-2 bg-opacity-80 lg:space-x-10 lg:space-y-0;
 }
 
 .logo {
@@ -7,5 +7,5 @@
 }
 
 .leftContent {
-  @apply flex items-center justify-center lg:justify-start;
+  @apply flex items-center justify-center lg:items-start lg:justify-start;
 }

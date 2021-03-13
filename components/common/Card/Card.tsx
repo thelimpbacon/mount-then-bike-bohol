@@ -9,14 +9,14 @@ interface CardProps {
   _id: string;
   name: string;
   mainImage: ImageField;
-  type: "Bike" | "Parts" | "Accesories";
+  type: "Bikes" | "Parts" | "Accesories";
   highlights?: {
     name: { value: string; type: "text" | "hit" }[];
   };
 }
 
 const IconContainer = ({ type }: { type: string }) => {
-  if (type === "Bike") {
+  if (type === "Bikes") {
     return (
       <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
         <Bike className="w-8 h-8 text-gray-200 lg:w-10 lg:h-10" />

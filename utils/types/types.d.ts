@@ -9,7 +9,7 @@ export interface ProductType {
   name: string;
   price: number;
   description: string;
-  type: string;
+  type: "Bikes" | "Parts" | "Accesories";
   mainImage: ImageField;
   secondaryImage: Array<ImageField>;
 }

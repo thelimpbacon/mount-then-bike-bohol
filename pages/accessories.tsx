@@ -3,6 +3,7 @@ import { initializeApollo } from "@lib/apolloClient/client";
 import { TeaserCatalogue } from "@components/common";
 import { GET_TYPE } from "@lib/tags";
 import { GetStaticProps } from "next";
+import { seoImages } from "@lib/seoRelated/images";
 
 const Header = () => {
   return (
@@ -21,10 +22,7 @@ const Header = () => {
         content="The newest and most affordable bikes available on the market have
             invaded Bohol."
       />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/mount-then-bike-bohol/image/upload/v1614095448/70f2ab11-bc17-4b2c-8944-0b5d359b7730-145896986_211016100714946_2013226482598011937_o.jpg.jpg"
-      />
+      <meta property="og:image" content={seoImages.accessories} />
     </NextHead>
   );
 };

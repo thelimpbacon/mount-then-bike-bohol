@@ -3,6 +3,7 @@ import { initializeApollo } from "@lib/apolloClient/client";
 import { TeaserCatalogue } from "@components/common";
 import { GET_TYPE } from "@lib/tags";
 import { GetStaticProps } from "next";
+import { seoImages } from "@lib/seoRelated/images";
 
 const Header = () => {
   return (
@@ -18,10 +19,7 @@ const Header = () => {
         content="The newest and most affordable bikes available on the market have
           invaded Bohol."
       />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/mount-then-bike-bohol/image/upload/v1614095451/8f45d107-c9bf-41e6-ada9-be0ccd34b006-145835548_211014310715125_5210714344076590716_o.jpg.jpg"
-      />
+      <meta property="og:image" content={seoImages.bikes} />
     </NextHead>
   );
 };
@@ -44,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_TYPE,
-    variables: { type: "Bike" },
+    variables: { type: "Bikes" },
   });
 
   return {

@@ -12,6 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (pathname !== "/") {
+      setHasScrolled(true);
       return;
     }
     const handleScroll = throttle(() => {
