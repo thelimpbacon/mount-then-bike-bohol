@@ -16,7 +16,7 @@ const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://192.168.178.22:3000/api/graphql"
-      : "https://admin-mount-then-bike-bohol.vercel.app/api/graphql",
+      : process.env.GRAPHQL_ENDPOINT,
   credentials: "include", // Additional fetch() options like `credentials` or `headers`
   fetch,
 });

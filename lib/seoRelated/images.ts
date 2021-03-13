@@ -1,6 +1,6 @@
 const seoImages = {
   index:
-    "Https://res.cloudinary.com/mount-then-bike-bohol-admin-prod/image/upload/v1615652491/static/b04020bd-151a-4b78-857d-f9c27afb54e3-bannerfade.jpg.jpg",
+    "https://res.cloudinary.com/mount-then-bike-bohol-admin-prod/image/upload/v1615633785/static/d434302a-4b16-4f89-9c38-899b7e1ca830-145893362_211016557381567_321366468149861339_o.jpg_qj2muf.jpg",
   bikes:
     "https://res.cloudinary.com/mount-then-bike-bohol-admin-prod/image/upload/v1615640555/static/8f45d107-c9bf-41e6-ada9-be0ccd34b006-145835548_211014310715125_5210714344076590716_o.jpg_ki0df5.jpg",
   parts:

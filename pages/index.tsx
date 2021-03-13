@@ -36,7 +36,7 @@ const Home = ({ forFeatures }) => {
           <Image
             className="object-contain object-top w-full h-auto max-h-full"
             alt="home image"
-            src={seoImages.index}
+            src="https://res.cloudinary.com/mount-then-bike-bohol-admin-prod/image/upload/v1615652491/static/b04020bd-151a-4b78-857d-f9c27afb54e3-bannerfade.jpg.jpg"
             height={600}
             width={1000}
             layout="responsive"
