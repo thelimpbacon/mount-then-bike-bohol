@@ -46,7 +46,7 @@ const Navbar = () => {
             </a>
           </Link>
 
-          <nav className="space-x-2 lg:ml-6 lg:space-x-4">
+          <nav className="space-x-2 text-white lg:ml-6 lg:space-x-4">
             <Link href="/bikes">
               <a className={cn(s.link, { "text-black": !hasScrolled })}>
                 Bikes

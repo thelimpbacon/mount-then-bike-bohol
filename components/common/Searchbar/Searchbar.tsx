@@ -15,7 +15,7 @@ interface InputType {
 
 const Searchbar = ({ className, id = "search" }: SearchbarProps) => {
   const router = useRouter();
-  const { register, handleSubmit, reset } = useForm<InputType>({
+  const { register, handleSubmit } = useForm<InputType>({
     defaultValues: {
       searchString: "",
     },
@@ -31,8 +31,6 @@ const Searchbar = ({ className, id = "search" }: SearchbarProps) => {
 
     //submit search
     router.push(`/search?q=${trimmed}`);
-
-    reset({ searchString: "" });
   };
 
   return (
