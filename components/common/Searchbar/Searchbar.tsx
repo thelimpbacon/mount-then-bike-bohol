@@ -1,4 +1,7 @@
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import cn from "classnames";
+import { Search } from "../Icons";
 import s from "./Searchbar.module.css";
 
 interface SearchbarProps {
@@ -6,9 +9,33 @@ interface SearchbarProps {
   id?: string;
 }
 
+interface InputType {
+  searchString: string;
+}
+
 const Searchbar = ({ className, id = "search" }: SearchbarProps) => {
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<InputType>({
+    defaultValues: {
+      searchString: "",
+    },
+  });
+
+  const onSubmit = (data: any, e: any) => {
+    e.preventDefault();
+    const trimmed = data.searchString.trim();
+
+    if (trimmed.length < 1) {
+      return;
+    }
+
+    //submit search
+    router.push(`/search?q=${trimmed}`);
+  };
+
   return (
-    <div
+    <form
+      onSubmit={handleSubmit(onSubmit)}
       className={cn(
         "relative text-sm bg-accents-1 w-full transition-colors duration-150",
         className
@@ -17,17 +44,17 @@ const Searchbar = ({ className, id = "search" }: SearchbarProps) => {
       <label className="hidden" htmlFor={id}>
         Search
       </label>
-      <input id={id} className={s.input} placeholder="Search for products..." />
-      <div className={s.iconContainer}>
-        <svg className={s.icon} fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-          />
-        </svg>
-      </div>
-    </div>
+      <input
+        id={id}
+        className={s.input}
+        name="searchString"
+        placeholder="Search..."
+        ref={register({ required: true })}
+      />
+      <button className={s.iconContainer}>
+        <Search className={s.icon} />
+      </button>
+    </form>
   );
 };
 

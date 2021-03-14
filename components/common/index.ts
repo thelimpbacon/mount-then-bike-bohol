@@ -6,3 +6,6 @@ export { default as Searchbar } from "./Searchbar";
 export { default as ProductSlider } from "./ProductSlider";
 export { default as TeaserCatalogue } from "./TeaserCatalogue";
 export { default as ProductView } from "./ProductView";
+export { default as SearchResults } from "./SearchResults";
+export { default as SearchCatalogue } from "./SearchCatalogue";
+export { default as Card } from "./Card";

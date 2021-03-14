@@ -1,12 +1,12 @@
 import { Card } from "@components/common";
-import { ProductType } from "utils/types/types";
-import s from "./TeaserCatalogue.module.css";
+import { SearchProductType } from "utils/types/types";
+import s from "./SearchCatalogue.module.css";
 
-interface TeaserCatalogueProps {
-  products: Array<ProductType>;
+interface SearchCatalogueProps {
+  products: Array<SearchProductType>;
 }
 
-const TeaserCatalogue = ({ products }: TeaserCatalogueProps) => {
+const SearchCatalogue = ({ products }: SearchCatalogueProps) => {
   return (
     <div className={s.root}>
       {products.map((product) => (
@@ -16,10 +16,11 @@ const TeaserCatalogue = ({ products }: TeaserCatalogueProps) => {
           name={product.name}
           mainImage={product.mainImage}
           type={product.type}
+          highlights={product.highlights}
         />
       ))}
     </div>
   );
 };
 
-export default TeaserCatalogue;
+export default SearchCatalogue;

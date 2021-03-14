@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 import cn from "classnames";
 import s from "./Layout.module.css";
 import { Footer, Navbar } from "@components/common";

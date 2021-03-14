@@ -8,30 +8,33 @@ import { seoImages } from "@lib/seoRelated/images";
 const Header = () => {
   return (
     <NextHead>
-      <meta property="og:title" content="Bikes by Mount, then Bike Bohol" />
+      <meta
+        property="og:title"
+        content="Accesories by Mount, then Bike Bohol"
+      />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`${process.env.NEXT_PUBLIC_SITE_URL}/bikes`}
+        content={`${process.env.NEXT_PUBLIC_SITE_URL}/accesories`}
       />
       <meta
         property="og:description"
         content="The newest and most affordable bikes available on the market have
-          invaded Bohol."
+            invaded Bohol."
       />
-      <meta property="og:image" content={seoImages.bikes} />
+      <meta property="og:image" content={seoImages.accessories} />
     </NextHead>
   );
 };
 
-const Bikes = ({ forBikes }) => {
+const Home = ({ forAccessories }) => {
   return (
     <>
       <Header />
       <div className="min-h-screen">
         <div className="p-1 md:p-6">
-          <div className="text-2xl ">Our bikes</div>
-          <TeaserCatalogue products={forBikes} />
+          <div className="text-2xl ">Our accessories</div>
+          <TeaserCatalogue products={forAccessories} />
         </div>
       </div>
     </>
@@ -42,15 +45,17 @@ export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_TYPE,
-    variables: { type: "Bikes" },
+    variables: {
+      type: "Accessories",
+    },
   });
 
   return {
     props: {
-      forBikes: data.getType,
+      forAccessories: data.getType,
     },
     revalidate: 400,
   };
 };
 
-export default Bikes;
+export default Home;

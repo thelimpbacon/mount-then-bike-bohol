@@ -9,7 +9,13 @@ export interface ProductType {
   name: string;
   price: number;
   description: string;
-  type: string;
+  type: "Bikes" | "Parts" | "Accesories";
   mainImage: ImageField;
   secondaryImage: Array<ImageField>;
+}
+
+export interface SearchProductType extends ProductType {
+  highlights: {
+    name: { value: string; type: "text" | "hit" }[];
+  };
 }

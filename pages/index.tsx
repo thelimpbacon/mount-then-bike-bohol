@@ -1,38 +1,12 @@
 import NextHead from "next/head";
 import { initializeApollo } from "@lib/apolloClient/client";
-import Banner from "@components/Banner";
-import { TeaserCatalogue } from "@components/common";
-import { GET_ALL_BIKES_AND_ACCESORIES } from "@lib/tags";
-import { GetStaticProps } from "next";
 import Link from "next/link";
-
-export const forBanner = [
-  {
-    name: "4.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/4.jpg?alt=media&token=2da8d0d0-692d-4ce4-846a-1db29e37e7e3",
-  },
-  {
-    name: "1.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/1.jpg?alt=media&token=d1ec9986-8591-4bc5-aad5-eaa9f2394a77",
-  },
-  {
-    name: "2.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/2.jpg?alt=media&token=e4ff9de1-0a5c-4e51-b884-d0693e550875",
-  },
-  {
-    name: "3.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/3.jpg?alt=media&token=1c2f3ba7-0bbb-4354-bf47-dfcfe94a1c1e",
-  },
-  {
-    name: "5.jpg",
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/mount-then-bike-bohol.appspot.com/o/5.jpg?alt=media&token=96b779ec-6f89-4b60-b3ca-1f33c55acdfb",
-  },
-];
+import Image from "next/image";
+import { TeaserCatalogue } from "@components/common";
+import { GetStaticProps } from "next";
+import { Bike, Chainset, Helmet } from "@components/common/Icons";
+import { GET_ALL_PRODUCTS } from "@lib/tags";
+import { seoImages } from "@lib/seoRelated/images";
 
 const Header = () => {
   return (
@@ -45,35 +19,104 @@ const Header = () => {
         content="The newest and most affordable bikes available on the market have
             invaded Bohol."
       />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/mount-then-bike-bohol/image/upload/v1614095442/d434302a-4b16-4f89-9c38-899b7e1ca830-145893362_211016557381567_321366468149861339_o.jpg.jpg"
-      />
+      <meta property="og:image" content={seoImages.index} />
     </NextHead>
   );
 };
 
-const Home = ({ forBanner, forBikes, forAccessories }) => {
+const Home = ({ forFeatures }) => {
   return (
     <>
       <Header />
-      <div className="md:relative -top-32">
-        <Banner picsUrl={forBanner} />
-        <div className="p-1 md:p-6">
-          <Link href="/bikes">
-            <a>
-              <div className="text-2xl ">Our bikes</div>
-            </a>
-          </Link>
-          <TeaserCatalogue products={forBikes} />
+      <div className="lg:-mt-20">
+        <div
+          className="relative hidden w-screen lg:block"
+          style={{ height: "55vh" }}
+        >
+          <Image
+            className="object-contain object-top w-full h-auto max-h-full"
+            alt="home image"
+            src="https://res.cloudinary.com/mount-then-bike-bohol-admin-prod/image/upload/v1615652491/static/b04020bd-151a-4b78-857d-f9c27afb54e3-bannerfade.jpg.jpg"
+            height={600}
+            width={1000}
+            layout="responsive"
+            priority={true}
+            quality="85"
+          />
         </div>
-        <div className="p-1 md:p-6">
-          <Link href="/accesories">
-            <a>
-              <div className="text-2xl ">Our accesories</div>
-            </a>
-          </Link>
-          <TeaserCatalogue products={forAccessories} />
+
+        <div className="p-1 lg:mt-20 md:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <Link href="/bikes">
+              <a className="relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100">
+                <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
+                  <Bike className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+                </div>
+                <Image
+                  className="object-cover w-full h-auto transition duration-500 ease-in-out transform rounded-t-lg hover:scale-105"
+                  alt="Spare parts"
+                  src={seoImages.bikes}
+                  height={200}
+                  width={300}
+                  layout="responsive"
+                  quality="85"
+                />
+                <div className="px-4 py-2 bg-gradient-to-br from-indigo-300 to-indigo-50">
+                  <h3 className="my-2 text-xl font-medium text-gray-700 uppercase ">
+                    Bicycles
+                  </h3>
+                </div>
+              </a>
+            </Link>
+            <Link href="/parts">
+              <a className="relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100">
+                <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
+                  <Chainset className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+                </div>
+                <Image
+                  className="object-cover w-full h-auto transition duration-500 ease-in-out transform rounded-t-lg hover:scale-105"
+                  alt="Spare parts"
+                  src={seoImages.parts}
+                  height={200}
+                  width={300}
+                  layout="responsive"
+                  quality="85"
+                />
+                <div className="px-4 py-2 from-purple-200 bg-gradient-to-br to-purple-50">
+                  <h3 className="my-2 text-xl font-medium text-gray-700 uppercase ">
+                    Parts
+                  </h3>
+                </div>
+              </a>
+            </Link>
+            <Link href="/accessories">
+              <a className="relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100">
+                <div className="absolute right-0 z-10 px-1 bg-gray-500 shadow-md bg-opacity-30">
+                  <Helmet className="w-12 h-12 text-gray-200 lg:w-10 lg:h-10" />
+                </div>
+                <Image
+                  className="object-cover w-full h-auto transition duration-500 ease-in-out transform rounded-t-lg hover:scale-105 "
+                  alt="Spare parts"
+                  src={seoImages.accessories}
+                  height={200}
+                  width={300}
+                  layout="responsive"
+                  quality="85"
+                />
+                <div className="px-4 py-2 from-pink-200 bg-gradient-to-br to-pink-50">
+                  <h3 className="my-2 text-xl font-medium text-gray-700 uppercase ">
+                    Accessories
+                  </h3>
+                </div>
+              </a>
+            </Link>
+          </div>
+
+          <h3 className="mt-5 mb-1 text-2xl text-center lg:mb-0 lg:text-left lg:ml-4">
+            More to discover
+          </h3>
+
+          <TeaserCatalogue products={forFeatures} />
         </div>
       </div>
     </>
@@ -83,16 +126,17 @@ const Home = ({ forBanner, forBikes, forAccessories }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
-    query: GET_ALL_BIKES_AND_ACCESORIES,
+    query: GET_ALL_PRODUCTS,
+    variables: {
+      limit: 8,
+    },
   });
 
   return {
     props: {
-      forBanner,
-      forBikes: data.getAllBikes,
-      forAccessories: data.getAllAccesories,
+      forFeatures: data.getAllProducts,
     },
-    revalidate: 600,
+    revalidate: 400,
   };
 };
 

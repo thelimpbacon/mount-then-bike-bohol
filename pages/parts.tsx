@@ -1,8 +1,9 @@
 import NextHead from "next/head";
 import { initializeApollo } from "@lib/apolloClient/client";
 import { TeaserCatalogue } from "@components/common";
-import { GET_ALL_ACCESORIES } from "@lib/tags";
+import { GET_TYPE } from "@lib/tags";
 import { GetStaticProps } from "next";
+import { seoImages } from "@lib/seoRelated/images";
 
 const Header = () => {
   return (
@@ -21,22 +22,19 @@ const Header = () => {
         content="The newest and most affordable bikes available on the market have
             invaded Bohol."
       />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/mount-then-bike-bohol/image/upload/v1614095448/70f2ab11-bc17-4b2c-8944-0b5d359b7730-145896986_211016100714946_2013226482598011937_o.jpg.jpg"
-      />
+      <meta property="og:image" content={seoImages.parts} />
     </NextHead>
   );
 };
 
-const Home = ({ forAccessories }) => {
+const Parts = ({ forParts }) => {
   return (
     <>
       <Header />
-      <div className="lg:min-h-screen">
+      <div className="min-h-screen">
         <div className="p-1 md:p-6">
-          <div className="text-2xl ">Our accesories</div>
-          <TeaserCatalogue products={forAccessories} />
+          <div className="text-2xl ">Our Parts</div>
+          <TeaserCatalogue products={forParts} />
         </div>
       </div>
     </>
@@ -46,15 +44,18 @@ const Home = ({ forAccessories }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
-    query: GET_ALL_ACCESORIES,
+    query: GET_TYPE,
+    variables: {
+      type: "Parts",
+    },
   });
 
   return {
     props: {
-      forAccessories: data.getAllAccesories,
+      forParts: data.getType,
     },
-    revalidate: 600,
+    revalidate: 400,
   };
 };
 
-export default Home;
+export default Parts;

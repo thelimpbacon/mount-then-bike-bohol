@@ -1,4 +1,8 @@
-import productModel, { IProduct } from "@lib/db/models/Product";
+import productModel, {
+  IProduct,
+  ISearch,
+  IParsedSearchProduct,
+} from "@lib/db/models/Product";
 import { dbConnect } from "@lib/db/dbConnect";
 import { ApolloServer, gql, ApolloError } from "apollo-server-micro";
 import { Connection, Model } from "mongoose";
@@ -14,6 +18,27 @@ const typeDefs = gql`
     secondaryImage: [Image]
   }
 
+  type SearchProduct {
+    _id: ID
+    name: String
+    price: Float
+    description: String
+    type: String
+    mainImage: Image
+    secondaryImage: [Image]
+    highlights: Highlight
+  }
+
+  type Highlight {
+    name: [HighlightText]
+    type: [HighlightText]
+  }
+
+  type HighlightText {
+    value: String
+    type: String
+  }
+
   type Image {
     public_id: String
     url: String
@@ -22,9 +47,9 @@ const typeDefs = gql`
 
   type Query {
     getProduct(_id: ID!): Product
-    getAllProducts: [Product]
-    getAllBikes: [Product]
-    getAllAccesories: [Product]
+    getAllProducts(limit: Int): [Product]
+    getType(type: String!, limit: Int): [Product]
+    searchProducts(searchString: String): [SearchProduct]
   }
 `;
 
@@ -51,7 +76,7 @@ const resolvers = {
     },
     getAllProducts: async (
       _root: any,
-      __args: any,
+      { limit = null }: { limit?: number | null },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -59,7 +84,9 @@ const resolvers = {
       let products: Array<IProduct>;
 
       try {
-        products = await ProductModel.find();
+        products = await ProductModel.find()
+          .sort({ createdAt: "desc" })
+          .limit(limit);
       } catch (error) {
         console.error("getAllProducts error: ", error);
         throw new ApolloError("Error retrieving all products");
@@ -67,10 +94,9 @@ const resolvers = {
 
       return products;
     },
-
-    getAllBikes: async (
+    getType: async (
       _root: any,
-      __args: any,
+      { type, limit = null }: { type: string; limit?: number | null },
       { dbConnection }: { dbConnection: Connection }
     ): Promise<Array<IProduct>> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
@@ -78,28 +104,74 @@ const resolvers = {
       let products: Array<IProduct>;
 
       try {
-        products = await ProductModel.find({ type: "Bike" });
+        products = await ProductModel.find({ type })
+          .sort({
+            createdAt: "desc",
+          })
+          .limit(limit);
       } catch (error) {
-        console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
+        console.error("getAllType error: ", error);
+        throw new ApolloError(`Error retrieving type:${type}`);
       }
 
       return products;
     },
-    getAllAccesories: async (
+    searchProducts: async (
       _root: any,
-      __args: any,
+      { searchString }: { searchString: string },
       { dbConnection }: { dbConnection: Connection }
-    ): Promise<Array<IProduct>> => {
+    ): Promise<IParsedSearchProduct[]> => {
       const ProductModel: Model<IProduct> = productModel(dbConnection);
 
-      let products: Array<IProduct>;
+      let searchProducts: Array<ISearch>;
+      let products: Array<IParsedSearchProduct> | [];
 
       try {
-        products = await ProductModel.find({ type: "Accesories" });
+        searchProducts = await ProductModel.aggregate([
+          {
+            $search: {
+              index: "searchIndex",
+              text: {
+                query: searchString,
+                path: ["name", "type"],
+                fuzzy: {
+                  maxEdits: 2,
+                },
+              },
+              highlight: {
+                path: ["name", "type"],
+              },
+            },
+          },
+          {
+            $addFields: {
+              highlights: {
+                $meta: "searchHighlights",
+              },
+            },
+          },
+        ]);
+
+        products =
+          searchProducts.length === 0
+            ? []
+            : searchProducts.map((p) => {
+                const highlightName =
+                  p.highlights.filter((h) => h.path === "name")[0]?.texts || [];
+                const highlightDescription =
+                  p.highlights.filter((h) => h.path === "type")[0]?.texts || [];
+
+                return {
+                  ...p,
+                  highlights: {
+                    name: highlightName,
+                    type: highlightDescription,
+                  },
+                };
+              });
       } catch (error) {
-        console.error("getAllProducts error: ", error);
-        throw new ApolloError("Error retrieving all products");
+        console.error("searchProducts error: ", error);
+        throw new ApolloError("Error searching products");
       }
 
       return products;

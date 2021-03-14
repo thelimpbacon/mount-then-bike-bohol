@@ -24,27 +24,11 @@ export const GET_PRODUCT = gql`
 `;
 
 export const GET_ALL_PRODUCTS = gql`
-  query getAllProducts {
-    getAllProducts {
-      _id
-    }
-  }
-`;
-
-export const GET_ALL_BIKES_AND_ACCESORIES = gql`
-  query getAllBikesAndAccesories {
-    getAllBikes {
+  query getAllProducts($limit: Int) {
+    getAllProducts(limit: $limit) {
       _id
       name
-      mainImage {
-        public_id
-        url
-        filename
-      }
-    }
-    getAllAccesories {
-      _id
-      name
+      type
       mainImage {
         public_id
         url
@@ -53,12 +37,12 @@ export const GET_ALL_BIKES_AND_ACCESORIES = gql`
     }
   }
 `;
-
-export const GET_ALL_ACCESORIES = gql`
-  query getAllAccesories {
-    getAllAccesories {
+export const GET_TYPE = gql`
+  query getType($type: String!, $limit: Int) {
+    getType(type: $type, limit: $limit) {
       _id
       name
+      type
       mainImage {
         public_id
         url
@@ -68,15 +52,27 @@ export const GET_ALL_ACCESORIES = gql`
   }
 `;
 
-export const GET_ALL_BIKES = gql`
-  query getAllBikes {
-    getAllBikes {
+export const SEARCH_PRODUCTS = gql`
+  query searchProducts($searchString: String) {
+    searchProducts(searchString: $searchString) {
       _id
       name
+      type
+      description
       mainImage {
         public_id
         url
         filename
+      }
+      highlights {
+        name {
+          value
+          type
+        }
+        type {
+          value
+          type
+        }
       }
     }
   }
