@@ -136,7 +136,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       forFeatures: data.getAllProducts,
     },
-    revalidate: 600,
+    revalidate: 400,
   };
 };
 

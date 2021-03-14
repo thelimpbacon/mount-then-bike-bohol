@@ -11,7 +11,7 @@ const Product = (props: ProductType) => {
   const router = useRouter();
   if (router.isFallback) {
     // needs a proper loading comp
-    return <div className="p-10">"Loading product"</div>;
+    return <div className="h-screen p-10">"Loading product"</div>;
   }
 
   // This includes setting the noindex header because static files always return
@@ -54,6 +54,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { ...q.data.getProduct },
-    revalidate: 600,
+    revalidate: 400,
   };
 };
