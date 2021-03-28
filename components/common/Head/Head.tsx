@@ -38,12 +38,10 @@ const Head = () => {
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#ffffff" />
       <meta name="author" content="Vaughn Dalde" />
-      {/* <meta
+      <meta
         name="google-site-verification"
-        content="l8Jl2gs8ukjS1B3LXklNTLSAp6pjd3sX2HXTSLLEvDE"
-      /> */}
-      <meta name="robots" content="noindex" />
-      <meta name="googlebot" content="noindex" />
+        content="kefOM2JIOAe6JFIWH1ukA80XqTzPv9QngJN3Pkkulz4"
+      />
     </NextHead>
   );
 };
