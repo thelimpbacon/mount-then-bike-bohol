@@ -9,11 +9,13 @@ const Footer = () => {
       <div className={s.leftContent}>
         <figure className="flex items-center mt-3 lg:hidden">
           <div className="text-center text-white">
-            <img
-              className={cn(s.logo, "mx-auto")}
-              src="/mtbb.png"
-              alt="mount-then-bike-bohol"
-            />
+            <div className="flex items-center justify-center ">
+              <img
+                className={cn(s.logo)}
+                src="/mtbb.png"
+                alt="mount-then-bike-bohol"
+              />
+            </div>
             <h2 className="mb-1 text-lg font-semibold">
               Mount, then Bike Bohol
             </h2>
@@ -23,6 +25,7 @@ const Footer = () => {
             </p>
           </div>
         </figure>
+
         <figure className="items-center hidden lg:flex">
           <img className={s.logo} src="/mtbb.png" alt="mount-then-bike-bohol" />
           <blockquote className="text-left text-white">
