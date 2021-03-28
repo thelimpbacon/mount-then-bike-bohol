@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "../Icons";
+import { Facebook, MapPin, Phone } from "../Icons";
 import s from "./Footer.module.css";
 
 const Footer = () => {
@@ -22,34 +22,37 @@ const Footer = () => {
       <div className="pt-3 lg:pt-0 lg:pl-20">
         <ul className="text-sm text-center lg:text-left">
           <li>
+            <Facebook className="inline w-6 h-6 mr-2" />
             <a
+              className="text-blue-400 underline"
               href="https://www.facebook.com/mounthenbikebohol"
               target="_blank"
+              rel="noopener noreferrer"
             >
-              <Facebook className="inline w-10 h-10" />
+              @mounthenbikebohol
             </a>
-            <Instagram className="inline w-10 h-10 mx-6" />
-            <Twitter className="inline w-10 h-10" />
           </li>
-          <li className="mt-5 mb-3 text-white">
+          <li className="my-3 text-white">
             <MapPin className="inline w-6 h-6 mr-2 text-red-400" />
             <a
-              href="https://www.google.com/maps/search/Km.+14,+Central+Highway,+Bil-isan+6340+Panglao,+Philippines/@9.9665635,124.0302112,14.09z"
+              href="http://maps.google.com/?q=9.632839244746611, 123.84036526079736"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <span className="underline">
-                Km. 14, Central Highway, Bil-isan 6340 Panglao, Philippines
+                Fonacier Circumferential Road, Purok 6, Songculan, Dauis, Bohol,
+                6339
               </span>
             </a>
           </li>
           <li className="my-3 text-white">
             <Phone className="inline w-6 h-6 mr-2 text-green-400" />
             <span>+63 950 609 8165</span>
+            <span className="px-3 mx-3 border-l-2 border-r-2">
+              +63 915 727 8217
+            </span>
+            <span>+63 917 154 7303</span>
           </li>
-          {/* <li className="my-3 text-white">
-            <Mail className="inline w-6 h-6 mr-2 text-blue-400" />
-            <span>sample-mount-then-bike-bohol@gmail.com</span>
-          </li> */}
         </ul>
       </div>
     </div>

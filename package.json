@@ -1,6 +1,10 @@
 {
   "name": "mount-then-bike-bohol",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.15.4",
+    "npm": "7.6.3"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",

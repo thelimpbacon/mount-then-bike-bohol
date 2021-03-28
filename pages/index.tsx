@@ -45,7 +45,7 @@ const Home = ({ forFeatures }) => {
           />
         </div>
 
-        <div className="p-1 lg:mt-20 md:p-6">
+        <div className="p-1 lg:mt-6 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <Link href="/bikes">
               <a className="relative mx-4 my-2 overflow-hidden bg-white rounded-lg shadow-md lg:m-4 hover:shadow-lg hover:bg-gray-100">
