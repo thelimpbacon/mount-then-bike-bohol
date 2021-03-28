@@ -6,8 +6,8 @@ const Head = () => {
       <title>Mount, then bike Bohol</title>
       <meta
         name="description"
-        content="The newest and most affordable bikes available on the market have
-            invaded Bohol."
+        content="We just don't build project bikes. We narrate your awesome biking
+        experience."
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -40,7 +40,7 @@ const Head = () => {
       <meta name="author" content="Vaughn Dalde" />
       <meta
         name="google-site-verification"
-        content="kefOM2JIOAe6JFIWH1ukA80XqTzPv9QngJN3Pkkulz4"
+        content="l8Jl2gs8ukjS1B3LXklNTLSAp6pjd3sX2HXTSLLEvDE"
       />
     </NextHead>
   );
