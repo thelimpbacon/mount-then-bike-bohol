@@ -12,8 +12,8 @@ const Footer = () => {
               Mount, then Bike Bohol
             </h2>
             <p className="text-sm lg:text-base">
-              The newest and most affordable bikes available on the market have
-              invaded Bohol.
+              We just don't build project bikes. We narrate your awesome biking
+              experience.
             </p>
           </blockquote>
         </figure>
