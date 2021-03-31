@@ -4,6 +4,8 @@ import { TeaserCatalogue } from "@components/common";
 import { GET_TYPE } from "@lib/tags";
 import { GetStaticProps } from "next";
 import { seoImages } from "@lib/seoRelated/images";
+import { useMatomo } from "@datapunt/matomo-tracker-react";
+import { useEffect } from "react";
 
 const Header = () => {
   return (
@@ -25,6 +27,10 @@ const Header = () => {
 };
 
 const Bikes = ({ forBikes }) => {
+  const { trackPageView } = useMatomo();
+  useEffect(() => {
+    trackPageView({});
+  }, []);
   return (
     <>
       <Header />

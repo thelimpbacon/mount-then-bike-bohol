@@ -6,8 +6,15 @@ import { GET_ALL_PRODUCTS, GET_PRODUCT } from "@lib/tags";
 import { ProductType } from "utils/types/types";
 import { ProductView } from "@components/common";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useMatomo } from "@datapunt/matomo-tracker-react";
+import { useEffect } from "react";
 
 const Product = (props: ProductType) => {
+  const { trackPageView } = useMatomo();
+  useEffect(() => {
+    trackPageView({});
+  }, []);
+
   const router = useRouter();
   if (router.isFallback) {
     // needs a proper loading comp

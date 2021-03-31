@@ -7,6 +7,8 @@ import { GetStaticProps } from "next";
 import { Bike, Chainset, Helmet } from "@components/common/Icons";
 import { GET_ALL_PRODUCTS } from "@lib/tags";
 import { seoImages } from "@lib/seoRelated/images";
+import { useMatomo } from "@datapunt/matomo-tracker-react";
+import { useEffect } from "react";
 
 const Header = () => {
   return (
@@ -25,6 +27,10 @@ const Header = () => {
 };
 
 const Home = ({ forFeatures }) => {
+  const { trackPageView } = useMatomo();
+  useEffect(() => {
+    trackPageView({});
+  }, []);
   return (
     <>
       <Header />
