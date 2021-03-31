@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import "keen-slider/keen-slider.min.css";
 
 const instance = createInstance({
-  urlBase: "http://159.89.19.207/",
+  urlBase: "https://mountthenbikeboholvercelapp.matomo.cloud/",
   siteId: 1,
 });
 
