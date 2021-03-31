@@ -12,7 +12,7 @@ import { useEffect } from "react";
 const Product = (props: ProductType) => {
   const { trackPageView } = useMatomo();
   useEffect(() => {
-    trackPageView({});
+    trackPageView({ documentTitle: props.name });
   }, []);
 
   const router = useRouter();

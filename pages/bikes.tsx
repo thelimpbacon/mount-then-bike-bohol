@@ -29,7 +29,7 @@ const Header = () => {
 const Bikes = ({ forBikes }) => {
   const { trackPageView } = useMatomo();
   useEffect(() => {
-    trackPageView({});
+    trackPageView({ documentTitle: "bikes" });
   }, []);
   return (
     <>

@@ -32,7 +32,7 @@ const Header = () => {
 const Parts = ({ forParts }) => {
   const { trackPageView } = useMatomo();
   useEffect(() => {
-    trackPageView({});
+    trackPageView({ documentTitle: "parts" });
   }, []);
   return (
     <>
