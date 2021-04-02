@@ -1,3 +1,11 @@
 .root {
   @apply flex flex-wrap lg:px-6 lg:py-2;
 }
+
+.links {
+  @apply relative mx-1 my-2 overflow-hidden bg-white rounded-lg shadow-sm lg:m-1 hover:shadow-lg hover:bg-gray-100;
+}
+
+.linksText {
+  @apply text-xs font-medium text-gray-700 uppercase;
+}

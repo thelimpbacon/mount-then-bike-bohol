@@ -6,3 +6,4 @@ export { default as Search } from "./Search";
 export { default as Bike } from "./Bike";
 export { default as Chainset } from "./Chainset";
 export { default as Helmet } from "./Helmet";
+export { default as Messenger } from "./Messenger";
