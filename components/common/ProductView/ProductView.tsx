@@ -3,6 +3,7 @@ import { ProductType } from "utils/types/types";
 import ProductSlider from "../ProductSlider";
 import Image from "next/image";
 import s from "./ProductView.module.css";
+import { Messenger } from "../Icons";
 
 const Header = ({
   _id,
@@ -58,7 +59,7 @@ const Product = (props: ProductType) => {
             ))}
           </ProductSlider>
         </div>
-        <div className="w-full px-5 mt-5 lg:w-1/3 lg:mt-0 ">
+        <div className="w-full px-5 mt-5 lg:w-1/3 lg:mt-0">
           <div className="my-3 text-3xl font-semibold lg:text-4xl">
             {props.name}
           </div>
@@ -69,6 +70,20 @@ const Product = (props: ProductType) => {
             }).format(props.price)}
           </div>
           <p className="mt-6 whitespace-pre-wrap">{props.description}</p>
+          <div className="mt-10">
+            <a
+              href="http://m.me/mounthenbikebohol"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="p-2 bg-gray-200 rounded-md focus:outline-none">
+                <span className="mr-3 text-sm text-gray-600">
+                  Connect with us on Messenger
+                </span>
+                <Messenger className="inline w-8 h-8" />
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     </>
